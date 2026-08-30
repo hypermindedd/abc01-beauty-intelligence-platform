@@ -131,6 +131,10 @@ class ServiceDecision(FrozenModel):
     note: str = ""
 
 
+class OutputSelection(FrozenModel):
+    output_ids: tuple[str, ...] = ()
+
+
 class FinalLookBoard(FrozenModel):
     board_id: str
     selected_option_ids: tuple[str, ...]
@@ -155,9 +159,10 @@ class SalonSessionState(FrozenModel):
     specialist_validation: SpecialistValidation | None = None
     safety_flags: tuple[SafetyFlag, ...] = ()
     service_decision: ServiceDecision | None = None
+    output_selection: OutputSelection = Field(default_factory=OutputSelection)
     final_look_board: FinalLookBoard | None = None
     commercial_offer_ids: tuple[str, ...] = ()
     audit_events: tuple[MutationEvent, ...] = ()
 
-    def public_snapshot(self) -> dict[str, Any]:
+    def canonical_snapshot(self) -> dict[str, Any]:
         return self.model_dump(mode="json")

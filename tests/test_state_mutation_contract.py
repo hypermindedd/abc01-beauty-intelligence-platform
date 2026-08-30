@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from abc_core.state import ActorContext, ActorType, AnalysisState, ClientSelection, EvidenceClass, EvidenceItem, MutationRejected, PreviewRevision, PreviewStatus, RecommendationOption, RecommendationRole, RecommendationSet, SafetyFlag, SafetyTier, SalonSessionState, ServiceDecision, ServiceDecisionStatus, SessionMutationEngine, SpecialistValidation, SpecialistValidationStatus, compile_output_projection
+from abc_core.state import ActorContext, ActorType, AnalysisState, ClientSelection, EvidenceClass, EvidenceItem, ExploreDirection, FinalLookBoard, InputAsset, LookContext, MixMatchComposition, MutationRejected, OutputSelection, ParticipantContext, PreviewRevision, PreviewStatus, RecommendationOption, RecommendationRole, RecommendationSet, RequestState, SafetyFlag, SafetyTier, SalonSessionState, ServiceDecision, ServiceDecisionStatus, SessionMutationEngine, SpecialistValidation, SpecialistValidationStatus, VisualExplorationSet, compile_output_projection
 
 
 ENGINE = SessionMutationEngine()
@@ -31,6 +31,15 @@ def recs(explore: int = 0) -> RecommendationSet:
     )
     extra = tuple(RecommendationOption(option_id=f"O-E{i}", title=f"E{i}", is_explore=True) for i in range(explore))
     return RecommendationSet(recommendation_set_id="R-1", core_options=core, explore_options=extra)
+
+
+def test_canonical_chain_mutations_are_revisioned_and_audited():
+    s = state()
+    s = ENGINE.set_request(s, SYSTEM, RequestState(request_id="REQ-1", service_ids=("SVC-01",)))
+    s = ENGINE.set_participant_context(s, CLIENT, ParticipantContext(context_id="CTX-1", explicit_preferences=("low maintenance",), explicit_event_context="wedding"))
+    s = ENGINE.add_input_asset(s, CLIENT, InputAsset(asset_id="IMG-1", media_type="image/jpeg", source_reality_note="client photo"))
+    assert s.revision == 3
+    assert [e.action for e in s.audit_events] == ["SET_REQUEST", "SET_PARTICIPANT_CONTEXT", "ADD_INPUT_ASSET"]
 
 
 def test_revision_and_append_only_audit_event_increment_together():
@@ -69,12 +78,36 @@ def test_explore_is_zero_to_three_never_relabels_core_and_max_six():
         ENGINE.publish_recommendations(s, SYSTEM, recs(4))
 
 
-def test_tenant_mismatch_is_fail_closed_and_original_state_is_unchanged():
+def test_fixed_choice_does_not_auto_expand_but_explicit_explore_can_be_requested():
+    s = ENGINE.set_request(reviewed_state(), SPECIALIST, RequestState(request_id="REQ-FIXED", fixed_choice=True))
+    with pytest.raises(MutationRejected):
+        ENGINE.publish_recommendations(s, SYSTEM, recs(1))
+    s = ENGINE.publish_recommendations(s, SYSTEM, recs(1), explicit_explore_requested=True)
+    assert len(s.recommendations.explore_options) == 1
+
+
+def test_explore_set_requires_explicit_client_or_specialist_action_and_valid_options():
+    s = ENGINE.publish_recommendations(reviewed_state(), SYSTEM, recs(1))
+    exploration = VisualExplorationSet(exploration_set_id="X-1", directions=(ExploreDirection(direction_id="XD-1", axis="lower maintenance", option_id="O-E0"),))
+    with pytest.raises(MutationRejected):
+        ENGINE.set_exploration_set(s, SYSTEM, exploration)
+    s2 = ENGINE.set_exploration_set(s, CLIENT, exploration)
+    assert s2.exploration_set == exploration
+
+
+def test_mix_match_must_be_compatibility_validated():
+    with pytest.raises(MutationRejected):
+        ENGINE.set_mix_match(state(), CLIENT, MixMatchComposition(composition_id="M-1", component_option_ids=("O-A", "O-B"), compatibility_validated=False))
+    s = ENGINE.set_mix_match(state(), SPECIALIST, MixMatchComposition(composition_id="M-2", component_option_ids=("O-A", "O-B"), compatibility_validated=True))
+    assert s.mix_match.compatibility_validated is True
+
+
+def test_tenant_mismatch_is_fail_closed_before_state_inspection_mutation():
     s0 = state()
     foreign = ActorContext(actor_type=ActorType.SYSTEM, actor_id="AG-01", tenant_id="OTHER")
-    with pytest.raises(MutationRejected):
-        ENGINE.add_evidence(s0, foreign, EvidenceItem(evidence_id="E-1", evidence_class=EvidenceClass.KNOWN, statement="x"))
-    assert s0.revision == 0 and not s0.evidence_set.items
+    with pytest.raises(MutationRejected, match="tenant mismatch"):
+        ENGINE.publish_recommendations(s0, foreign, recs())
+    assert s0.revision == 0 and s0.recommendations is None
 
 
 def test_preview_does_not_mutate_safety_or_service_decision():
@@ -83,6 +116,15 @@ def test_preview_does_not_mutate_safety_or_service_decision():
     s2 = ENGINE.record_preview_revision(s, VISUAL, PreviewRevision(revision_id="P-1", source_asset_id="I-1", option_id="O-A", status=PreviewStatus.QUARANTINED))
     assert s2.safety_flags == before_flags
     assert s2.service_decision is None
+
+
+def test_safety_state_survives_recommendation_and_commercial_mutations():
+    s = reviewed_state()
+    s = ENGINE.add_safety_flag(s, SYSTEM, SafetyFlag(flag_id="SF-1", tier=SafetyTier.S2, reason="check"))
+    flags = s.safety_flags
+    s = ENGINE.publish_recommendations(s, SYSTEM, recs())
+    s = ENGINE.set_commercial_eligibility(s, SYSTEM, ("VIP",))
+    assert s.safety_flags == flags
 
 
 def test_check_first_cannot_become_proceed_until_safety_resolved_and_specialist_passed():
@@ -104,10 +146,11 @@ def test_commercial_eligibility_cannot_reorder_core_recommendations():
     assert tuple(o.option_id for o in s2.recommendations.core_options) == before
 
 
-def test_output_projection_is_read_only_and_does_not_increment_truth_revision():
-    s = reviewed_state()
+def test_output_selection_is_canonical_but_compilation_is_read_only():
+    s = ENGINE.set_output_selection(reviewed_state(), SYSTEM, OutputSelection(output_ids=("OUT-02", "OUT-09")))
     before = s.model_dump()
-    projection = compile_output_projection(s, OUTPUT, ("OUT-02", "OUT-09"))
+    projection = compile_output_projection(s, OUTPUT)
+    assert projection["output_ids"] == ("OUT-02", "OUT-09")
     assert projection["read_only_projection"] is True
     assert s.model_dump() == before
 
@@ -117,3 +160,11 @@ def test_client_selection_does_not_imply_specialist_validation():
     s = ENGINE.select_option(s, CLIENT, ClientSelection(selection_id="SEL-1", option_id="O-A"))
     assert s.client_selection.option_id == "O-A"
     assert s.specialist_validation is None
+
+
+def test_final_look_board_is_presentation_only_not_execution_clearance():
+    with pytest.raises(MutationRejected):
+        ENGINE.set_final_look_board(state(), SYSTEM, FinalLookBoard(board_id="B-1", selected_option_ids=("O-A",), presentation_only=False))
+    s = ENGINE.set_final_look_board(state(), SYSTEM, FinalLookBoard(board_id="B-2", selected_option_ids=("O-A",)))
+    assert s.final_look_board.presentation_only is True
+    assert s.service_decision is None
