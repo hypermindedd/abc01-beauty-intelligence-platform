@@ -10,14 +10,17 @@ from .models import (
     TenantContext,
 )
 from .ports import AuthProvider, PersistencePort, SalonConfigPort, SecretProvider
-from .runtime import InfrastructureTruth
+from .runtime import INFRASTRUCTURE, InfrastructureTruth, InfrastructureUnavailable
+from .scope import TenantScopeViolation, require_config_scope, require_session_scope
 
 __all__ = [
     "AccessDenied",
     "AuthProvider",
+    "INFRASTRUCTURE",
     "InfrastructureCapability",
     "InfrastructureStatus",
     "InfrastructureTruth",
+    "InfrastructureUnavailable",
     "Permission",
     "PersistencePort",
     "Principal",
@@ -26,5 +29,8 @@ __all__ = [
     "SalonConfigPort",
     "SecretProvider",
     "TenantContext",
+    "TenantScopeViolation",
+    "require_config_scope",
     "require_permission",
+    "require_session_scope",
 ]
