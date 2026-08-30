@@ -1,0 +1,12 @@
+{
+  "artifact_id": "ABC-R02.3-START-001",
+  "stage": "R02.3",
+  "parent_main": "89a66477fe22f4036c5cd96190b0280378e96149",
+  "parent_r02_2_status": "PASS_TESTED_ENGINEERING_BASELINE",
+  "parent_r02_2_commit": "02a7e2260424ac4bb07dd73271be2876c4f7d751",
+  "scope": "ORCHESTRATOR_AND_WORKFLOW_STATE_MACHINE",
+  "truth_source": "ONE_CANONICAL_SALON_SESSION_STATE",
+  "runtime_product_pass": false,
+  "pilot_ready": false,
+  "production_ready": false
+}
