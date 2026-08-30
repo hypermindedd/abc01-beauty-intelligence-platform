@@ -1,1 +1,18 @@
-x
+{
+  "artifact_id": "ABC-R02.5-START-001",
+  "stage": "R02.5",
+  "parent_closeout_commit": "a1b33055ddc0b29b1140ca5f3bda15539ed22995",
+  "parent_status": "R02.4_PASS_TESTED_ENGINEERING_BASELINE",
+  "scope": "CROSS_DOMAIN_CAPTURE_AND_BEAUTY_ANALYSIS",
+  "hard_rules": [
+    "ANALYSIS_BEFORE_RECOMMENDATION",
+    "VISIBLE_EVIDENCE_ONLY_FROM_MEDIA",
+    "NO_HIDDEN_TRAIT_INFERENCE",
+    "UNKNOWN_REMAINS_UNKNOWN_UNLESS_REPORTED_OR_PROFESSIONALLY_CHECKED",
+    "INSUFFICIENT_CAPTURE_FAILS_CLOSED",
+    "SHARED_AND_SPECIALIST_ANALYSIS_PROJECT_FROM_ONE_CANONICAL_TRUTH"
+  ],
+  "runtime_product_pass": false,
+  "pilot_ready": false,
+  "production_ready": false
+}
