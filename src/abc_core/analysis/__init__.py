@@ -1,5 +1,6 @@
 """Cross-domain capture, evidence and beauty-analysis contracts for R02.5."""
 
+from .compiler import compile_analysis_state, compile_evidence_items
 from .contracts import (
     AnalysisFinding,
     AnalysisStrategy,
@@ -38,4 +39,6 @@ __all__ = [
     "ImageQuality",
     "MultimodalAnalysisExtractor",
     "capture_plan_for_services",
+    "compile_analysis_state",
+    "compile_evidence_items",
 ]
