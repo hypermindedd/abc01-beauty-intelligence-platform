@@ -24,3 +24,9 @@ def test_build_info_exposes_contract_not_fake_capability():
     assert len(data["agent_ids"]) == 10
     assert len(data["output_ids"]) == 17
     assert all(v is False for v in data["capabilities"].values())
+    assert data["infrastructure"] == {
+        "AUTH": "INTERFACE_ONLY",
+        "PERSISTENCE": "INTERFACE_ONLY",
+        "SECRETS": "INTERFACE_ONLY",
+        "SALON_CONFIG": "INTERFACE_ONLY",
+    }
