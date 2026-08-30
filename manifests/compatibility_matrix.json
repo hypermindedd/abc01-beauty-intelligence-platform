@@ -1,0 +1,19 @@
+{
+  "artifact_id": "ABC-R02.1-COMPAT-001",
+  "stage": "R02.1",
+  "status": "ENGINEERING_COMPATIBILITY_BASELINE",
+  "python": ">=3.11,<3.15",
+  "canonical_agents": "AG-01..AG-10",
+  "canonical_outputs": "OUT-01..OUT-17",
+  "product_documents": 20,
+  "runtime_knowledge_files": 16,
+  "canonical_test_range": "ABC-TC-001…132",
+  "visual_runtime_contract": "ABC-DOC-016A v1.0.0 PRODUCTIZATION_BASELINE",
+  "forbidden_ids": ["SVC-03-008", "CTRL-011", "CTRL-012", "CTRL-013"],
+  "production_auth": "NOT_IMPLEMENTED",
+  "production_persistence": "NOT_IMPLEMENTED",
+  "external_visual_provider": "NOT_CONFIGURED_IN_R02.1",
+  "deterministic_full_frame_lock_compositor": "R03_REQUIRED",
+  "pilot_ready": false,
+  "production_ready": false
+}
