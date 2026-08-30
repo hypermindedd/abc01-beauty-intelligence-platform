@@ -2,6 +2,7 @@ import pytest
 
 from abc_core.analysis import (
     AnalysisContractViolation,
+    AnalysisExtractionResult,
     AnalysisFinding,
     AnalysisStrategy,
     BeautyAnalysisBundle,
@@ -10,6 +11,7 @@ from abc_core.analysis import (
     CrossDomainAnalysisEngine,
     Domain,
     FindingVisibility,
+    GovernedAnalysisRuntime,
     ImageQuality,
     capture_plan_for_services,
 )
@@ -136,3 +138,86 @@ def test_specialist_review_requires_sufficient_capture_and_findings():
     )
     with pytest.raises(AnalysisContractViolation):
         engine.mark_specialist_reviewed(bundle, specialist_actor_id="SP-1")
+
+
+class FakeExtractor:
+    def __init__(self):
+        self.calls = 0
+
+    def extract(self, request):
+        self.calls += 1
+        return AnalysisExtractionResult(
+            findings=(
+                AnalysisFinding(
+                    finding_id="F-LIVE",
+                    domain=request.domain,
+                    statement="provider-returned visible finding",
+                    evidence_class=EvidenceClass.OBSERVED,
+                    source_asset_ids=(request.capture_inputs[0].asset_id,),
+                ),
+            ),
+            shared_summary="shared summary",
+            specialist_summary="specialist summary",
+            strategy=AnalysisStrategy(strategy_id="STR-LIVE", summary="evidence-grounded strategy"),
+        )
+
+
+def test_governed_runtime_blocks_provider_when_capture_is_insufficient():
+    extractor = FakeExtractor()
+    runtime = GovernedAnalysisRuntime(CrossDomainAnalysisEngine(), extractor)
+    with pytest.raises(AnalysisContractViolation):
+        runtime.run(
+            tenant_id="T1",
+            session_id="S1",
+            domain=Domain.HAIR,
+            service_ids=("SVC-DEMO",),
+            plan=CAPTURE_PLANS[Domain.HAIR],
+            capture_inputs=(),
+        )
+    assert extractor.calls == 0
+
+
+def test_governed_runtime_quarantines_then_validates_provider_output():
+    extractor = FakeExtractor()
+    engine = CrossDomainAnalysisEngine()
+    runtime = GovernedAnalysisRuntime(engine, extractor)
+    plan = CAPTURE_PLANS[Domain.MENS_HAIR_BEARD]
+    inputs = tuple(
+        CaptureInput(asset_id=f"A{i}", view=req.view, quality=ImageQuality.STRONG)
+        for i, req in enumerate(plan.requirements)
+    )
+    bundle = runtime.run(
+        tenant_id="T1",
+        session_id="S1",
+        domain=Domain.MENS_HAIR_BEARD,
+        service_ids=("SVC-DEMO",),
+        plan=plan,
+        capture_inputs=inputs,
+    )
+    assert extractor.calls == 1
+    assert bundle.capture_assessment.sufficient is True
+    assert bundle.findings[0].evidence_class is EvidenceClass.OBSERVED
+    assert bundle.specialist_reviewed is False
+
+
+def test_specialist_review_is_separate_from_provider_analysis():
+    extractor = FakeExtractor()
+    engine = CrossDomainAnalysisEngine()
+    runtime = GovernedAnalysisRuntime(engine, extractor)
+    plan = CAPTURE_PLANS[Domain.NAILS]
+    inputs = tuple(
+        CaptureInput(asset_id=f"A{i}", view=req.view, quality=ImageQuality.USABLE)
+        for i, req in enumerate(plan.requirements)
+    )
+    bundle = runtime.run(
+        tenant_id="T1",
+        session_id="S1",
+        domain=Domain.NAILS,
+        service_ids=("SVC-DEMO",),
+        plan=plan,
+        capture_inputs=inputs,
+    )
+    assert bundle.specialist_reviewed is False
+    reviewed = engine.mark_specialist_reviewed(bundle, specialist_actor_id="SP-1")
+    assert reviewed.specialist_reviewed is True
+    assert reviewed.specialist_reviewer_id == "SP-1"
