@@ -1,0 +1,21 @@
+name: ABC R02 Core
+
+on:
+  push:
+    branches: [ main, 'r02/**' ]
+  pull_request:
+
+jobs:
+  r02-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install R02.1 core
+        run: python -m pip install -e '.[dev]'
+      - name: Compile
+        run: python -m compileall -q src/abc_core
+      - name: R02.1 tests
+        run: pytest -q tests/test_baseline_contract.py tests/test_registry_contract.py tests/test_capabilities.py tests/test_app.py
