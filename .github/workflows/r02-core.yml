@@ -28,3 +28,4 @@ jobs:
           tests/test_state_serialization.py
           tests/test_orchestrator_workflow.py
           tests/test_orchestration_control_plane.py
+          tests/test_tenant_auth_config_boundaries.py
