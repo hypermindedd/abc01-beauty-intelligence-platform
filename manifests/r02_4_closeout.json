@@ -1,0 +1,35 @@
+{
+  "artifact_id": "ABC-R02.4-CLOSEOUT-001",
+  "stage": "R02.4",
+  "status": "PASS_TESTED_ENGINEERING_BASELINE",
+  "scope": "TENANT_AUTH_SALON_CONFIG_SECRETS_PERSISTENCE_BOUNDARIES",
+  "pr": 6,
+  "branch_head": "254bed162acb11f44204316cf0e09e1b39e0f300",
+  "merge_sha": "9f7e68579a82ba67a42a9e7046c6049175ba6ada",
+  "ci": {
+    "branch_r02": 33323993778,
+    "pr_core": 33324033603,
+    "pr_r02": 33324033663,
+    "main_core": 33324082402,
+    "main_r02": 33324082362
+  },
+  "roles": [
+    "SALON_OWNER",
+    "SALON_ADMIN",
+    "SPECIALIST",
+    "CONFIG_EDITOR",
+    "READ_ONLY"
+  ],
+  "infrastructure_default": {
+    "AUTH": "INTERFACE_ONLY",
+    "PERSISTENCE": "INTERFACE_ONLY",
+    "SECRETS": "INTERFACE_ONLY",
+    "SALON_CONFIG": "INTERFACE_ONLY"
+  },
+  "production_adapters_verified": false,
+  "runtime_product_pass": false,
+  "product_validation": false,
+  "pilot_ready": false,
+  "production_ready": false,
+  "next_stage": "R02.5"
+}
