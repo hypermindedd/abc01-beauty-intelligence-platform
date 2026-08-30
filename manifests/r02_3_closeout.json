@@ -1,0 +1,39 @@
+{
+  "artifact_id": "ABC-R02.3-CLOSEOUT-001",
+  "stage": "R02.3",
+  "status": "PASS_TESTED_ENGINEERING_BASELINE",
+  "scope": "ORCHESTRATOR_WORKFLOW_RETRIES_FAILURE_TAXONOMY_IDEMPOTENCY_OBSERVABILITY",
+  "initial_pr": 4,
+  "initial_merge_sha": "58f7be1373ae4eb1bce12b01eb22eb1c054c4b6e",
+  "hardening_pr": 5,
+  "hardening_branch_head": "ee093bbc623d3492d7d3172d0aead50455068ee6",
+  "implementation_merge_sha": "e50fab1f3e50a3f77fdf672b98c9294d4ddaa8e2",
+  "ci": {
+    "initial_branch_r02": 33323235400,
+    "initial_pr_core": 33323283071,
+    "initial_pr_r02": 33323283064,
+    "initial_main_core": 33323319725,
+    "initial_main_r02": 33323319728,
+    "hardening_branch_r02": 33323561414,
+    "hardening_pr_core": 33323594191,
+    "hardening_pr_r02": 33323594260,
+    "implementation_main_core": 33323632902,
+    "implementation_main_r02": 33323632904
+  },
+  "truth_model": "ONE_CANONICAL_SALON_SESSION_STATE",
+  "workflow_phases": [
+    "SPECIALIST_SETUP",
+    "CLIENT_GUIDED_INPUT",
+    "ANALYSIS_REVIEW",
+    "SHARED_REVIEW",
+    "SPECIALIST_VALIDATION",
+    "SERVICE_CONFIRMATION",
+    "COMPLETE"
+  ],
+  "durable_adapters_implemented": false,
+  "runtime_product_pass": false,
+  "product_validation": false,
+  "pilot_ready": false,
+  "production_ready": false,
+  "next_stage": "R02.4"
+}
