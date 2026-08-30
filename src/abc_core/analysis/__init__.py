@@ -14,10 +14,14 @@ from .contracts import (
     ImageQuality,
 )
 from .engine import AnalysisContractViolation, CrossDomainAnalysisEngine
+from .ports import AnalysisExtractionRequest, AnalysisExtractionResult, MultimodalAnalysisExtractor
 from .registry import CAPTURE_PLANS, capture_plan_for_services
+from .runtime import GovernedAnalysisRuntime
 
 __all__ = [
     "AnalysisContractViolation",
+    "AnalysisExtractionRequest",
+    "AnalysisExtractionResult",
     "AnalysisFinding",
     "AnalysisStrategy",
     "BeautyAnalysisBundle",
@@ -30,6 +34,8 @@ __all__ = [
     "CrossDomainAnalysisEngine",
     "Domain",
     "FindingVisibility",
+    "GovernedAnalysisRuntime",
     "ImageQuality",
+    "MultimodalAnalysisExtractor",
     "capture_plan_for_services",
 ]
