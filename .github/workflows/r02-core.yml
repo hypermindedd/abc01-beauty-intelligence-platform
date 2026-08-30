@@ -27,3 +27,4 @@ jobs:
           tests/test_state_mutation_contract.py
           tests/test_state_serialization.py
           tests/test_orchestrator_workflow.py
+          tests/test_orchestration_control_plane.py
