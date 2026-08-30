@@ -1,0 +1,59 @@
+{
+  "artifact_id": "ABC-CORE-RUNTIME-CROSS-DOMAIN-v0.4.0",
+  "date": "2026-08-30",
+  "result": "PASS",
+  "validation_scope": "LOCAL_STRUCTURAL_AND_OFFLINE_E2E",
+  "checks": {
+    "python_compile": "PASS",
+    "javascript_syntax": "PASS",
+    "legacy_mens_compatibility": "PASS",
+    "cross_domain_profiles_and_controlled_routing": "PASS",
+    "professional_multiview_gate": "PASS",
+    "analysis_review_before_recommendation": "PASS",
+    "custom_direction_composition": "PASS",
+    "domain_preview_locks": "PASS",
+    "preview_quarantine_retry_publish_gate": "PASS",
+    "offline_e2e": {
+      "result": "PASS",
+      "checks": {
+        "health_v040": true,
+        "cross_domain_profiles": true,
+        "nail_capture_plan": true,
+        "hair_general_analysis_pass": true,
+        "hair_general_analysis_brief_before_recommendation": true,
+        "hair_general_no_recommendation_before_review": true,
+        "hair_general_recommendation_bounded": true,
+        "hair_color_analysis_pass": true,
+        "hair_color_analysis_brief_before_recommendation": true,
+        "hair_color_no_recommendation_before_review": true,
+        "hair_color_recommendation_bounded": true,
+        "hair_color_s1_guided_caution": true,
+        "makeup_analysis_pass": true,
+        "makeup_analysis_brief_before_recommendation": true,
+        "makeup_no_recommendation_before_review": true,
+        "makeup_recommendation_bounded": true,
+        "nails_analysis_pass": true,
+        "nails_analysis_brief_before_recommendation": true,
+        "nails_no_recommendation_before_review": true,
+        "nails_recommendation_bounded": true,
+        "mens_hair_beard_analysis_pass": true,
+        "mens_hair_beard_analysis_brief_before_recommendation": true,
+        "mens_hair_beard_no_recommendation_before_review": true,
+        "mens_hair_beard_recommendation_bounded": true,
+        "bridal_complete_analysis_pass": true,
+        "bridal_complete_analysis_brief_before_recommendation": true,
+        "bridal_complete_no_recommendation_before_review": true,
+        "bridal_complete_recommendation_bounded": true,
+        "no_fake_preview_without_key": true
+      }
+    },
+    "upgrade_installer_preserves_env_and_data": "PASS"
+  },
+  "not_validated": {
+    "live_paid_provider_multiview_across_all_domains": "NOT_EXECUTED",
+    "empirical_visual_quality_all_domains": "NOT_EXECUTED",
+    "production_deterministic_compositor": "NOT_IMPLEMENTED",
+    "pilot_readiness": "NOT_CLAIMED",
+    "production_readiness": "NOT_CLAIMED"
+  }
+}

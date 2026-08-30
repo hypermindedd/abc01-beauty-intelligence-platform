@@ -1,0 +1,48 @@
+{
+  "artifact_id": "ABC-CORE-RUNTIME-CROSS-DOMAIN",
+  "version": "0.4.0",
+  "date": "2026-08-30",
+  "status": "IMPLEMENTED_LOCAL_E2E_PASS_LIVE_CROSS_DOMAIN_VALIDATION_PENDING",
+  "scope": "CANONICAL_ABC_CORE_NOT_MENS_ONLY",
+  "authority_input": "ABC-PZ-R02-INPUT-BASELINE-001",
+  "authority_status": "PRODUCTIZATION_BASELINE_FROZEN_FOR_R02_INPUT",
+  "production_ready": false,
+  "pilot_ready": false,
+  "supported_core_profiles": [
+    "hair_general",
+    "hair_color",
+    "makeup",
+    "nails",
+    "mens_hair_beard",
+    "bridal_complete",
+    "hair_extensions",
+    "smoothing"
+  ],
+  "controlled_ids": "CTRL-001…010 exact routing implemented",
+  "unsupported_by_current_ontology": [
+    "skincare/facials",
+    "waxing",
+    "medical scalp/hair-loss treatment",
+    "hair transplant",
+    "hair replacement systems"
+  ],
+  "hard_engine_rules": [
+    "SERVICE_SPECIFIC_PROFESSIONAL_MULTI_VIEW_GATE",
+    "ANALYSIS_BRIEF_BEFORE_RANKED_RECOMMENDATION",
+    "EXPLICIT_ANALYSIS_REVIEW_GATE",
+    "CUSTOM_DIRECTION_COMPOSITION_NOT_CATALOG_ONLY",
+    "SOURCE_REALITY_AUTHORITATIVE",
+    "DOMAIN_SPECIFIC_PREVIEW_LOCKS",
+    "PROVIDER_OUTPUT_QUARANTINE_BEFORE_PUBLISH",
+    "BOUNDED_QA_RETRY_REJECT",
+    "SPECIALIST_VALIDATION_SEPARATE_FROM_PREVIEW"
+  ],
+  "validation": {
+    "python_compile": "PASS",
+    "javascript_syntax": "PASS",
+    "cross_domain_core_tests": "PASS",
+    "preview_quarantine_test": "PASS",
+    "offline_e2e": "PASS",
+    "live_paid_provider_all_domains": "NOT_EXECUTED"
+  }
+}

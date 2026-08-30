@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061421">
+<title>ABC Beauty Intelligence — CROSS-DOMAIN LIVE</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">ABC<span>BEAUTY CORE</span></div>
+      <div><b>ABC Beauty Intelligence</b><small>Cross-Domain Core Runtime · LIVE DEMO</small></div>
+    </div>
+    <div class="topactions">
+      <span id="modeBadge" class="badge">در حال بررسی...</span>
+      <button id="newSessionBtn" class="btn ghost">Session جدید</button>
+      <button id="catalogBtn" class="btn ghost">Direction Library</button>
+      <button id="specialistBtn" class="btn gold">Specialist View</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stepper" id="stepper"></section>
+
+    <section class="dashboard">
+      <aside class="leftcol">
+        <div class="card chat">
+          <div class="cardhead"><h3>مشاوره زنده</h3><span class="online">● Online</span></div>
+          <div id="chatLog" class="chatlog"></div>
+          <div class="chatinput">
+            <textarea id="chatInput" rows="2" placeholder="هدف، مناسبت یا چیزی که درباره استایل می‌خواهید را بگویید..."></textarea>
+            <div class="row">
+              <button id="micBtn" class="iconbtn" title="Voice input">🎙</button>
+              <button id="sendBtn" class="btn teal grow">ارسال</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card intake">
+          <div class="cardhead"><h3>دریافت عکس</h3><span id="uploadState" class="muted">هنوز دریافت نشده</span></div>
+          <div id="dropZone" class="drop">
+            <div class="dropicon">⇧</div>
+            <b>Upload / Drag & Drop</b>
+            <span>JPG · PNG · WEBP · HEIC</span>
+            <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" hidden>
+          </div>
+          <div class="row">
+            <button id="choosePhotoBtn" class="btn dark grow">آپلود عکس</button>
+            <button id="cameraBtn" class="btn dark grow">گرفتن عکس</button>
+          </div>
+        </div>
+
+        <div class="card capturemanager">
+          <div class="cardhead"><div><h3>Professional Multi-View Capture</h3><small>Service-specific evidence plan</small></div><span id="captureStatus" class="badge subtle">0 / 0</span></div>
+          <div id="capturePlan" class="captureplan"><div class="muted" style="padding:12px">Service را انتخاب کنید.</div></div>
+          <input id="viewFileInput" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" hidden>
+        </div>
+
+        <div class="card context">
+          <div class="cardhead"><h3>Context مشاوره</h3></div>
+          <label>Service<select id="service">
+            <option value="hair_general">Haircut / Hairstyle</option>
+            <option value="hair_color">Hair Color</option>
+            <option value="makeup">Makeup</option>
+            <option value="nails">Nails</option>
+            <option value="mens_hair_beard">Men's Hair + Beard</option>
+            <option value="bridal_complete">Bridal / Complete Look</option>
+            <option value="hair_extensions">Hair Extensions · Controlled</option>
+            <option value="smoothing">Smoothing / Keratin · Controlled</option>
+          </select></label>
+          <label>مناسبت<select id="occasion">
+            <option>Groom</option><option>Business</option><option>Birthday</option><option>Party</option><option>Everyday</option><option>Photoshoot</option>
+          </select></label>
+          <label>Style<select id="style">
+            <option>Refined</option><option>Natural</option><option>Modern</option><option>Bold</option><option>Editorial</option><option>Luxury</option>
+          </select></label>
+          <label>میزان تغییر<select id="changeLevel">
+            <option>Noticeable</option><option>Subtle</option><option>Statement</option>
+          </select></label>
+          <label>Maintenance<select id="maintenance">
+            <option>Moderate</option><option>Low</option><option>Low–Moderate</option><option>High</option>
+          </select></label>
+          <label>هدف<textarea id="goal" rows="2" placeholder="مثلاً مدرن، رسمی، مناسب عکس و جلسه..."></textarea></label>
+          <button id="analyzeBtn" class="btn primary full">شروع Orchestration</button>
+        </div>
+      </aside>
+
+      <section class="centercol">
+        <div class="card previewcard">
+          <div class="cardhead">
+            <h3>Preview Studio</h3>
+            <div class="row"><span id="previewBadge" class="badge subtle">Decision Preview · QA-GATED</span><span id="providerHint" class="muted"></span></div>
+          </div>
+          <div class="previewgrid">
+            <div class="imagepane">
+              <span class="imglabel">قبل</span>
+              <div id="sourceEmpty" class="emptyart"><div>◌</div><b>عکس مشتری را اضافه کنید</b></div>
+              <img id="sourceImg" alt="Client source" hidden>
+            </div>
+            <div class="imagepane result">
+              <span class="imglabel">Preview</span>
+              <div id="previewEmpty" class="emptyart"><div>✦</div><b>Look را انتخاب و Generate Preview را اجرا کنید</b><span>در Live Mode خروجی از Image Provider واقعی برمی‌گردد.</span></div>
+              <img id="previewImg" alt="Decision preview" hidden>
+            </div>
+          </div>
+          <div class="previewcontrols">
+            <select id="previewScope">
+              <option value="hair_beard">Hair + Beard</option>
+              <option value="hair">Hair only</option>
+              <option value="beard">Beard only</option>
+              <option value="color">Color only</option>
+              <option value="makeup">Makeup</option>
+              <option value="nails">Nails</option>
+              <option value="complete">Complete Look</option>
+            </select>
+            <input id="extraInstruction" placeholder="Refinement اختیاری: مثلاً sides کمی بلندتر..." />
+            <button id="generateBtn" class="btn primary" disabled>Generate Preview ✦</button>
+          </div>
+          <div id="previewMessage" class="notice"></div>
+        </div>
+
+        <div class="card enginescard">
+          <div class="cardhead">
+            <div><h3>Orchestration Engine</h3><small>ترتیب، State و Gate هر Engine به‌صورت Observable</small></div>
+            <span id="taskState" class="badge">IDLE</span>
+          </div>
+          <div id="engineStrip" class="engines"></div>
+          <div id="truthLine" class="truthline">One Truth State · Safety is cross-cutting · Client Selection ≠ Specialist Validation</div>
+        </div>
+
+        <div class="card analysiscard">
+          <div class="cardhead"><h3>Context / Safety Summary</h3></div>
+          <div class="analysisgrid">
+            <div><h4>Shared Analysis</h4><div id="analysisSummary" class="summary">هنوز اجرا نشده.</div></div>
+            <div><h4>Source Reality Lock</h4><div id="realitySummary" class="summary reality">هنوز اجرا نشده.</div></div>
+            <div><h4>Safety Gate</h4><div id="safetySummary" class="summary">هنوز اجرا نشده.</div></div>
+          </div>
+          <div style="padding:0 12px 12px">
+            <div style="margin-bottom:8px"><h4 style="font-size:10px;color:var(--teal);margin:0 0 7px">Strategy Before Recommendation</h4><div id="strategySummary" class="summary">بعد از Analysis ساخته می‌شود.</div></div>
+            <button id="ackAnalysisBtn" class="btn primary full" disabled>Analysis را مرور کردم — ساخت Recommendation</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="rightcol">
+        <div class="card looks">
+          <div class="cardhead">
+            <div><h3>Recommendation Directions</h3><small id="lookCount">0 Direction</small></div>
+            <div class="row"><button id="catalogBtn2" class="btn ghost">Direction Library</button><button id="exploreBtn" class="btn purple" disabled>Explore 3 More</button></div>
+          </div>
+          <div id="looksGrid" class="looksgrid">
+            <div class="emptywide">Orchestration را اجرا کنید تا Core Looks ساخته شوند.</div>
+          </div>
+        </div>
+
+
+        <div class="card modelstack">
+          <div class="cardhead"><h3>LIVE Model Stack</h3><span class="muted">Runtime transparency</span></div>
+          <div id="modelStack" class="modelgrid"></div>
+        </div>
+        <div class="card vip">
+          <div class="cardhead"><h3>Event / VIP Experience</h3><span class="vipmark">VIP</span></div>
+          <div class="tabs"><span class="active">شخصیت صریح</span><span>Groom</span><span>Business</span><span>Party</span></div>
+          <div class="vipgrid">
+            <div>
+              <b>Visual Look Intelligence</b>
+              <ul><li>3 Core + up to 3 Explore</li><li>Mix & Match در مسیر کامل محصول</li><li>Event Context بدون Personality inference</li></ul>
+            </div>
+            <div class="premium">
+              <b>VIP Visual</b>
+              <ul><li>Explore depth بیشتر</li><li>Preview refinement بیشتر</li><li>Final Look Board</li></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card validation">
+          <div class="cardhead"><h3>Specialist Validation</h3></div>
+          <div id="validationState" class="decisionbox">Client Selection هنوز ثبت نشده.</div>
+          <div class="decisiongrid">
+            <button data-decision="PROCEED" class="btn dark">PROCEED</button>
+            <button data-decision="MODIFY" class="btn dark">MODIFY</button>
+            <button data-decision="CHECK_FIRST" class="btn dark">CHECK FIRST</button>
+            <button data-decision="DEFER" class="btn dark">DEFER</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+
+  <dialog id="catalogDialog" class="catalogdialog">
+    <div class="dialoghead"><div><b>ABC Cross-Domain Direction Library</b><small id="catalogVersion"></small></div><button id="closeCatalog">×</button></div>
+    <div class="catalogtoolbar"><input id="catalogSearch" placeholder="جستجوی Direction / component..."/><select id="catalogType"><option value="hair">Hair</option><option value="color">Color</option><option value="makeup">Makeup</option><option value="nails">Nails</option><option value="beard">Beard</option></select></div>
+    <div id="catalogGrid" class="cataloggrid"></div>
+  </dialog>
+  <dialog id="cameraDialog">
+    <div class="dialoghead"><b>گرفتن عکس با دوربین</b><button id="closeCamera">×</button></div>
+    <video id="cameraVideo" autoplay playsinline></video>
+    <canvas id="cameraCanvas" hidden></canvas>
+    <div class="row"><button id="captureBtn" class="btn primary grow">Capture</button></div>
+  </dialog>
+
+  <div id="toast"></div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

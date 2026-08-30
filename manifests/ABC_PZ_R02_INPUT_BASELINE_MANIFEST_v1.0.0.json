@@ -1,0 +1,273 @@
+{
+  "artifact_id": "ABC-PZ-R02-INPUT-BASELINE-001",
+  "date": "2026-08-24",
+  "status": "PRODUCTIZATION_BASELINE_FROZEN_FOR_R02_INPUT",
+  "r02_build_allowed": true,
+  "runtime_product_pass_claimed": false,
+  "production_readiness_claimed": false,
+  "product_docs": [
+    {
+      "document_id": "ABC-DOC-000",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_000_Master_Product_Charter_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "0bb27c65da745b982dfbeb07c3bc97f9b47ec8079b1eddeb7a54f032a306f291"
+    },
+    {
+      "document_id": "ABC-DOC-001",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_001_Product_Specification_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "59ef94ca4e65b20a1afa3dde2a0d38e275a6e5e1bdbea69fff129b7ad691ba2f"
+    },
+    {
+      "document_id": "ABC-DOC-002",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_002_User_Experience_Specification_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "f5017f0ebf918702e1d5ff9f6588fca7dad8583a027d15a2ba7db4dbb036736c"
+    },
+    {
+      "document_id": "ABC-DOC-003",
+      "version": "1.1.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_003_Beauty_Service_Ontology_v1.1.0_PRODUCTIZATION.md",
+      "sha256": "f1265347164857b4d9475cbd4d26ae4a21049eff70c252ac012ad09223ed9613"
+    },
+    {
+      "document_id": "ABC-DOC-004",
+      "version": "1.1.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_004_Beauty_Attribute_Analysis_Model_v1.1.0_PRODUCTIZATION.md",
+      "sha256": "53bf4bfaea2014a9453a134afbe80210c8a93ee49c78e7e5f7318bc02c1350e2"
+    },
+    {
+      "document_id": "ABC-DOC-005",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_005_Intelligence_Architecture_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "1e2ba2a9726f4aa41b6708d830fd7ca3fd80f7ed6c9fefc407dee3897de09a71"
+    },
+    {
+      "document_id": "ABC-DOC-006",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_006_Agent_Specification_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "de74de3a8e6b2614b3ba25e59d989f2a2eee06d91506dc266e044b18fa17933f"
+    },
+    {
+      "document_id": "ABC-DOC-007",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_007_Decision_Recommendation_Engine_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "7292b1c72312036a7d7339a4f46bf1c3533f6887c8fdbda562ad98fdf80536a3"
+    },
+    {
+      "document_id": "ABC-DOC-008",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_008_Conversation_Operating_System_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "0660e10a406aae8ded9a9e37ebe3134646c297ccc89dc291a3bdb4dfafcd9f55"
+    },
+    {
+      "document_id": "ABC-DOC-009",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_009_Visual_Preview_System_Specification_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "c638147e0915e1ab1d24f6c0088a3b233d0244f95f75a01f1fbd366c8ca37e42"
+    },
+    {
+      "document_id": "ABC-DOC-010",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_010_Visual_Quality_Evaluation_Specification_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "038e18823d8d87ec7504128040cbd96f6de7c63c26c38ba678e9abcfa1175cd7"
+    },
+    {
+      "document_id": "ABC-DOC-011",
+      "version": "1.2.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_011_Knowledge_Architecture_Content_Model_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "39e9db01b1803d7f106afca13d17dcd6524245ef962f910aaf32649a29c17f09"
+    },
+    {
+      "document_id": "ABC-DOC-012",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_012_Safety_Boundary_Specification_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "65e35d87cab2f14c3a21aa0b4d9557ea59a4b922f4a96d88e2c2e0f2da7daf0d"
+    },
+    {
+      "document_id": "ABC-DOC-013",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_013_White_Label_Salon_Configuration_Specification_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "9273ee7fbc9e8a169df92c1276a8357ac0725e4121c87e9a846b9628f1a0e2b8"
+    },
+    {
+      "document_id": "ABC-DOC-014",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_014_Output_Handoff_Contracts_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "aaf2ebb139eb79beb499cfcc1605b41dfd9d368ba0060485a676c30f80f153e9"
+    },
+    {
+      "document_id": "ABC-DOC-015",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_015_Evaluation_QA_Specification_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "7a3c031c997821b9c17b759238aaad5cd9b5cb6d1bf411f9d06b0400c30cc858"
+    },
+    {
+      "document_id": "ABC-DOC-016",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_016_Runtime_Implementation_Specification_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "3df88bc678f27fced0a7a761bee2aa2a3992b1746df11fa653f98629dfd5c348"
+    },
+    {
+      "document_id": "ABC-DOC-016A",
+      "version": "1.0.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_016A_External_Visual_Runtime_API_Contract_v1.0.0_PRODUCTIZATION.md",
+      "sha256": "92e4c44d23c2b30612dab749c4d0a9285b80a1c7f04b6c2f06a3cc86357d2dfb"
+    },
+    {
+      "document_id": "ABC-DOC-018",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_018_Golden_Test_Dataset_Red_Team_Baseline_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "cdcf006e0a115eec00d8b661e32ae3c54882325f3ec44479d689a4191ec5b847"
+    },
+    {
+      "document_id": "ABC-DOC-900",
+      "version": "1.3.0",
+      "status": "PRODUCTIZATION_BASELINE",
+      "file": "ABC_DOC_900_Master_Document_Registry_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "f1aa3b4be0ecca425b9dee5c4172c473eff19497a6dedfad2481473da3eca53a"
+    }
+  ],
+  "knowledge_governance": {
+    "ABC-KB-000": {
+      "version": "1.2.0",
+      "file": "ABC_KB_000_Knowledge_Production_Blueprint_Quality_Standard_v1.2.0_PRODUCTIZATION.md",
+      "sha256": "34ac5629b27fae3cb67d3e48caa778015b59e18e7931249ea997b36efb51a8a1"
+    },
+    "ABC-KB-900": {
+      "version": "1.3.0",
+      "file": "ABC_KB_900_Knowledge_Runtime_Baseline_Freeze_Record_v1.3.0_PRODUCTIZATION.md",
+      "sha256": "17c01f9e7bf8244a2eda574fa46ef0af3d1df331c485f8699c896a92c5ce6bb2"
+    }
+  },
+  "runtime_knowledge": [
+    {
+      "file": "ABC_KB_01.txt",
+      "sha256": "27d0e5d0faf9bb048547c8c9c630ead57a3b9998617574e5e7866d953ccb3428",
+      "document_id": "ABC-DOC-003",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_02.md",
+      "sha256": "24288841dd474682ac28fe7c5cf124a62272254a7f0f71cd9aa5f897fe15a7f2",
+      "document_id": "ABC-DOC-004",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_03.md",
+      "sha256": "7d9483b8d5055e4691620de5963a5015b7d741c2af7f22ac620bad64e735bd0f",
+      "document_id": "ABC-KB-001",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_04.md",
+      "sha256": "d82926e3a2b015129ef6ddb318676bb18a83dbd30fba9b6a55bd95a5df02ad1a",
+      "document_id": "ABC-KB-002",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_05.md",
+      "sha256": "0174a9481f7d876ca192729e5db751353c5f0e43206a38a30d8559e43892112b",
+      "document_id": "ABC-KB-003",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_06.md",
+      "sha256": "bf08f7833e5157b015d0853146fb28111ab6cf00b2bc029e30c4c8a954039583",
+      "document_id": "ABC-KB-004",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_07.md",
+      "sha256": "b1db89c8e27b15a2c278ce7dd29fabc434caaa22cad5aac44b13275890d3bb8e",
+      "document_id": "ABC-KB-005",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_08.md",
+      "sha256": "3d59be5613e4bc4e1f071d6fe8c0c146e6aa5d66e188826a7764fc60d5f1d483",
+      "document_id": "ABC-KB-006",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_09.md",
+      "sha256": "2bab71ee17e2a9d02bab9250265b9891b1a731ac89672bd0c85abebb5da5a30b",
+      "document_id": "ABC-KB-007",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_10.md",
+      "sha256": "2beea408124c4c29c03e56353d39a07ea7e355b7dcf5aef918e53f3fd863216c",
+      "document_id": "ABC-KB-008",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_11.md",
+      "sha256": "b6ab8aac4a8b38c0caca5a10b1865585179d410a28fd52570ebe5db682c08583",
+      "document_id": "ABC-KB-009",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_12.md",
+      "sha256": "4a8b00eaebc239c452ab424070375fbab74da76a7b62039f6ff39ac4ce62473b",
+      "document_id": "ABC-KB-010",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_13.md",
+      "sha256": "4265e8793fb3a231170f7a964d4e5f13ed38e51176ae0e7b8be13bca9aaa849c",
+      "document_id": "ABC-KB-011",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_14.md",
+      "sha256": "3d7cf85ddaf89e516e8024a374de2ed593e68cd0315d1af18f991e7103b466a6",
+      "document_id": "ABC-KB-012",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_15.md",
+      "sha256": "e03d8a8ac0c6856c46b971e4105e10a32c9dd0ea808a06b5c88fb2acf0b69578",
+      "document_id": "ABC-KB-013",
+      "runtime_compilation_version": "1.1.0"
+    },
+    {
+      "file": "ABC_KB_16.md",
+      "sha256": "55843df41dc9aa359c4f8914b0eb1b4dcff01dde4f4c14e46c6fda942c29f620",
+      "document_id": "ABC-KB-014",
+      "runtime_compilation_version": "1.1.0"
+    }
+  ],
+  "evaluation": {
+    "doc015": "ABC-DOC-015 v1.3.0",
+    "doc018": "ABC-DOC-018 v1.3.0",
+    "canonical_test_range": "ABC-TC-001…132",
+    "execution_status": "NOT_EXECUTED_AGAINST_R02_YET"
+  },
+  "visual_runtime_contract": "ABC-DOC-016A v1.0.0 PRODUCTIZATION_BASELINE",
+  "groom_mapping": {
+    "new_groom_service_id": null,
+    "new_groom_control_id": null,
+    "resolution": "presentation/coordination label over valid existing Makeup services"
+  },
+  "hard_boundary": "Baseline freeze permits R02 implementation. It is not implementation PASS, Pilot Readiness, or Production Readiness."
+}

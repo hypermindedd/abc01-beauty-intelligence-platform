@@ -1,0 +1,12 @@
+/.venv/
+/.env.local
+/data/sessions/*
+!/data/sessions/.gitkeep
+/data/media/*
+!/data/media/.gitkeep
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+coverage/
+.pytest_cache/
