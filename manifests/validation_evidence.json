@@ -1,21 +1,41 @@
 {
   "artifact_id": "ABC-R02.1-VALIDATION-001",
   "stage": "R02.1",
-  "status": "BRANCH_VALIDATION_PASS__MERGE_PENDING",
+  "status": "PASS_TESTED_ENGINEERING_BASELINE",
   "tests": {
     "pytest": "9 passed",
     "python_compile": "PASS"
   },
-  "github_ci": {
+  "branch_validation": {
     "workflow": "ABC R02 Core",
-    "run_id": 33316774256,
-    "head_sha": "6e38547d7a50c5950f85036574bb5bb3c4a85f20",
+    "run_id": 33316978586,
+    "head_sha": "f3f9f39264acb7d9b4c5ae36e7693e1918529bde",
     "conclusion": "success"
   },
+  "pull_request": {
+    "number": 1,
+    "mergeable_at_audit": true,
+    "merged": true,
+    "merge_method": "squash"
+  },
+  "code_merge_commit": "58124d509dbf3f47181a535181b5fbf0afe642c2",
+  "main_validation": [
+    {
+      "workflow": "ABC Core CI",
+      "run_id": 33317042585,
+      "conclusion": "success"
+    },
+    {
+      "workflow": "ABC R02 Core",
+      "run_id": 33317042563,
+      "conclusion": "success"
+    }
+  ],
   "baseline_parent_main": "ff3d71681503737dbe84bceaec77d04a22419c5e",
   "runtime_product_pass": false,
   "product_validation_pass": false,
   "pilot_ready": false,
   "production_ready": false,
-  "next_gate": "PR_AUDIT_AND_MAIN_CI"
+  "r02_2_allowed": true,
+  "next_stage": "R02.2_CANONICAL_STATE_OBJECT_MODEL_AND_MUTATION_BOUNDARIES"
 }
