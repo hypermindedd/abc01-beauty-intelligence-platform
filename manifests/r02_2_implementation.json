@@ -1,14 +1,61 @@
 {
   "artifact_id": "ABC-R02.2-STATE-001",
   "stage": "R02.2",
-  "status": "ENGINEERING_IMPLEMENTATION_IN_PROGRESS",
+  "status": "PASS_TESTED_ENGINEERING_BASELINE",
   "parent_r02_1_evidence": "7289a144b83065d8a95c2a00eff9133eab4ba764",
   "runtime_version": "0.5.0a2",
   "truth_model": "ONE_CANONICAL_SALON_SESSION_STATE",
   "mutation_policy": "CONTROLLED_FAIL_CLOSED",
   "audit_policy": "APPEND_ONLY_MUTATION_EVENTS",
+  "tests": {
+    "r02_contract_tests": "27 passed",
+    "python_compile": "PASS"
+  },
+  "validation_history": {
+    "initial_scope_failure": {
+      "run_id": 33317472314,
+      "classification": "CI_WORKFLOW_SCOPE_ERROR",
+      "root_cause": "legacy Pillow-dependent preview test was accidentally collected by an over-broad R02 workflow",
+      "runtime_defect": false,
+      "resolved": true
+    },
+    "final_branch_ci": {
+      "workflow": "ABC R02 Core",
+      "run_id": 33317736668,
+      "head_sha": "b46a324abf796ba205f6efb1df9e3d477a58d894",
+      "conclusion": "success"
+    },
+    "pr_ci": [
+      {
+        "workflow": "ABC R02 Core",
+        "run_id": 33317738204,
+        "conclusion": "success"
+      },
+      {
+        "workflow": "ABC Core CI",
+        "run_id": 33317738238,
+        "conclusion": "success"
+      }
+    ],
+    "main_ci": [
+      {
+        "workflow": "ABC R02 Core",
+        "run_id": 33317850943,
+        "conclusion": "success"
+      },
+      {
+        "workflow": "ABC Core CI",
+        "run_id": 33317850883,
+        "conclusion": "success"
+      }
+    ]
+  },
+  "pull_request": 2,
+  "code_merge_commit": "02a7e2260424ac4bb07dd73271be2876c4f7d751",
   "runtime_product_pass": false,
   "product_validation_pass": false,
   "pilot_ready": false,
-  "production_ready": false
+  "production_ready": false,
+  "r02_3_allowed": true,
+  "next_stage": "R02.3_ORCHESTRATOR_AND_WORKFLOW_STATE_MACHINE"
 }
