@@ -13,9 +13,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Install R02.1 core
+      - name: Install R02 core
         run: python -m pip install -e '.[dev]'
       - name: Compile
         run: python -m compileall -q src/abc_core
-      - name: R02.1 tests
-        run: pytest -q tests/test_baseline_contract.py tests/test_registry_contract.py tests/test_capabilities.py tests/test_app.py
+      - name: R02 tests
+        run: pytest -q tests/
