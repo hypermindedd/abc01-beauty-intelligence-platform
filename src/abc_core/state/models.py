@@ -49,6 +49,12 @@ class EvidenceSet(FrozenModel):
 class AnalysisState(FrozenModel):
     analysis_id: str
     summary: str = ""
+    shared_summary: str = ""
+    specialist_summary: str = ""
+    strategy_summary: str = ""
+    capture_plan_ids: tuple[str, ...] = ()
+    capture_sufficient: bool | None = None
+    finding_ids: tuple[str, ...] = ()
     reviewed_by_specialist: bool = False
     reviewer_actor_id: str | None = None
 
