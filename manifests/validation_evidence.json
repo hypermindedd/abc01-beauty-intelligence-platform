@@ -1,14 +1,21 @@
 {
   "artifact_id": "ABC-R02.1-VALIDATION-001",
   "stage": "R02.1",
-  "status": "LOCAL_ENGINEERING_VALIDATION_PASS",
+  "status": "BRANCH_VALIDATION_PASS__MERGE_PENDING",
   "tests": {
     "pytest": "9 passed",
     "python_compile": "PASS"
   },
-  "local_dependency_mode": "existing environment; no network dependency resolution used",
-  "github_ci": "PENDING",
+  "github_ci": {
+    "workflow": "ABC R02 Core",
+    "run_id": 33316774256,
+    "head_sha": "6e38547d7a50c5950f85036574bb5bb3c4a85f20",
+    "conclusion": "success"
+  },
+  "baseline_parent_main": "ff3d71681503737dbe84bceaec77d04a22419c5e",
   "runtime_product_pass": false,
+  "product_validation_pass": false,
   "pilot_ready": false,
-  "production_ready": false
+  "production_ready": false,
+  "next_gate": "PR_AUDIT_AND_MAIN_CI"
 }
