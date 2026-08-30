@@ -1,0 +1,15 @@
+{
+  "artifact_id": "ABC-R02.1-BUILD-001",
+  "project_id": "ABC.01",
+  "stage": "R02.1",
+  "runtime_version": "0.5.0a1",
+  "parent_engineering_commit": "ff3d71681503737dbe84bceaec77d04a22419c5e",
+  "productization_input": "ABC-PZ-R02-INPUT-BASELINE-001",
+  "productization_status_required": "PRODUCTIZATION_BASELINE_FROZEN_FOR_R02_INPUT",
+  "claims": {
+    "engineering_scaffold": true,
+    "runtime_product_pass": false,
+    "pilot_ready": false,
+    "production_ready": false
+  }
+}
