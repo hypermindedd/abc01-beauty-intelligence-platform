@@ -6,6 +6,7 @@ from . import R02_STAGE, __version__
 from .capabilities import CAPABILITIES
 from .contracts import AGENT_IDS, OUTPUT_IDS
 from .startup import run_startup_gate
+from .tenancy import INFRASTRUCTURE
 
 BASELINE_REPORT = run_startup_gate()
 
@@ -33,5 +34,6 @@ def build_info() -> dict:
         "agent_ids": AGENT_IDS,
         "output_ids": OUTPUT_IDS,
         "capabilities": CAPABILITIES.public(),
+        "infrastructure": INFRASTRUCTURE.public(),
         "readiness_claim": "ENGINEERING_SCAFFOLD_ONLY",
     }

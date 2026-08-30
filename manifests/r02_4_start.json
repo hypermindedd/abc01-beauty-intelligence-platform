@@ -1,0 +1,22 @@
+{
+  "artifact_id": "ABC-R02.4-START-001",
+  "stage": "R02.4",
+  "parent_closeout_commit": "f66f700ebd679af7af85fb607cabd0882f74c1de",
+  "parent_status": "R02.3_PASS_TESTED_ENGINEERING_BASELINE",
+  "scope": "TENANT_AUTH_SALON_CONFIG_SECRETS_PERSISTENCE_BOUNDARIES",
+  "roles": [
+    "SALON_OWNER",
+    "SALON_ADMIN",
+    "SPECIALIST",
+    "CONFIG_EDITOR",
+    "READ_ONLY"
+  ],
+  "default_infrastructure_status": "INTERFACE_ONLY",
+  "production_auth_claimed": false,
+  "production_persistence_claimed": false,
+  "production_secret_store_claimed": false,
+  "production_salon_config_store_claimed": false,
+  "runtime_product_pass": false,
+  "pilot_ready": false,
+  "production_ready": false
+}
