@@ -1,0 +1,14 @@
+{
+  "artifact_id": "ABC-R02.1-VALIDATION-001",
+  "stage": "R02.1",
+  "status": "LOCAL_ENGINEERING_VALIDATION_PASS",
+  "tests": {
+    "pytest": "9 passed",
+    "python_compile": "PASS"
+  },
+  "local_dependency_mode": "existing environment; no network dependency resolution used",
+  "github_ci": "PENDING",
+  "runtime_product_pass": false,
+  "pilot_ready": false,
+  "production_ready": false
+}
