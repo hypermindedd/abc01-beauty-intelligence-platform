@@ -1,0 +1,29 @@
+{
+  "record_id": "ABC01-G0-EXTERNAL-ASSET-001",
+  "version": "1.0.0",
+  "project_id": "ABC.01",
+  "original_repository_path": "docs/DESIGN_REFERENCE.png",
+  "filename": "DESIGN_REFERENCE.png",
+  "media_type": "image/png",
+  "size_bytes": 1725243,
+  "sha256": "b276618ed9abcd390357c2b02ed2eda2334c2f05dfed25282c1f7172eeb9ab44",
+  "classification": "NON_RUNTIME_DESIGN_REFERENCE",
+  "runtime_dependency": false,
+  "architecture_authority": false,
+  "product_authority": false,
+  "exact_binary_preserved": true,
+  "preservation_location": {
+    "surface": "ChatGPT Library",
+    "library_path": "/ABC.01/Governed External Assets/DESIGN_REFERENCE.png",
+    "library_file_id": "libfile_7ad68dacb440819185b38bdba96f08d8",
+    "file_id": "file_00000000237c81f4aed93d6054d75de7"
+  },
+  "github_transport": {
+    "status": "GOVERNED_EXTERNAL_BINARY_REFERENCE",
+    "reason": "The connected GitHub write surface accepts UTF-8 contents and Git blobs but does not accept a local binary file reference; the exact non-runtime PNG is therefore preserved externally with byte identity and this immutable pointer is committed with the source baseline.",
+    "source_loss": false,
+    "semantic_loss": false
+  },
+  "closure_rule": "This non-runtime binary transport exception does not block the executable Core baseline when exact bytes, SHA-256, size, classification, and preservation location are governed and auditable. It must not be treated as engine authority or runtime evidence.",
+  "status": "PRESERVED_AND_GOVERNED"
+}
