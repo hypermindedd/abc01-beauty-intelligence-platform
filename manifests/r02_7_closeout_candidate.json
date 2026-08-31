@@ -1,0 +1,20 @@
+{
+  "project": "ABC.01",
+  "stage": "R02.7",
+  "status": "READY_FOR_PR",
+  "branch_head": "23fca8adf04dfbc279f733c043132d018b1309b0",
+  "final_branch_workflow_run": 33375337430,
+  "final_branch_ci": "PASS",
+  "tests": {
+    "passed": 87,
+    "warnings": 1,
+    "failed": 0
+  },
+  "scope": "AG-06 service intelligence, AG-08 safety propagation, AG-10 output compiler and read-only same-truth-state integration",
+  "readiness": {
+    "runtime_product_pass": false,
+    "live_cross_domain_product_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  }
+}
