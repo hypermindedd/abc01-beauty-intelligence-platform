@@ -1,0 +1,9 @@
+{
+  "stage": "R02.7",
+  "status": "PR_READY",
+  "head": "6deeccbde97a404d2b40812a951b9d5a5daa9a65",
+  "workflow_run": 33375578878,
+  "workflow_conclusion": "success",
+  "tests_passed": 87,
+  "failed": 0
+}
