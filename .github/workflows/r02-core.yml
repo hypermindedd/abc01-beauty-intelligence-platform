@@ -34,3 +34,4 @@ jobs:
           tests/test_recommendation_runtime.py
           tests/test_recommendation_state_integration.py
           tests/test_service_safety_output.py
+          tests/test_r02_7_integration.py
