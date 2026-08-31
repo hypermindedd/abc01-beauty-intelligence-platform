@@ -1,5 +1,6 @@
 """Governed recommendation runtime for R02.6."""
 
+from .compiler import compile_recommendation_set
 from .contracts import (
     CandidateDirection,
     ChangeIntensity,
@@ -21,4 +22,5 @@ __all__ = [
     "RecommendationCompilation",
     "RecommendationContractViolation",
     "RecommendationEngine",
+    "compile_recommendation_set",
 ]
