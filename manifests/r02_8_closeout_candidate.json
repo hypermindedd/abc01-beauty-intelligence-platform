@@ -1,0 +1,50 @@
+{
+  "project": "ABC.01",
+  "stage": "R02.8",
+  "status": "CLOSEOUT_CANDIDATE",
+  "version": "0.5.0a8",
+  "validated_implementation_head": "51cd4fb0de2332d13d9bd144de4b209c8458db78",
+  "validation": {
+    "workflow": "ABC R02 Core",
+    "run_id": 33376809408,
+    "conclusion": "success",
+    "tests_passed": 99,
+    "tests_failed": 0,
+    "warnings": 1
+  },
+  "coverage": [
+    "HAIR",
+    "HAIR_COLOR",
+    "MAKEUP",
+    "NAILS",
+    "MENS_HAIR_BEARD",
+    "BRIDAL_GROOM",
+    "CONTROLLED_SERVICE"
+  ],
+  "hard_rules": [
+    "ONE_CANONICAL_TRUTH_STATE",
+    "ANALYSIS_BEFORE_RANKED_RECOMMENDATION",
+    "EXACT_SERVICE_RESOLUTION_FAIL_CLOSED",
+    "BASELINE_AND_SESSION_SAFETY_PROPAGATION",
+    "SERVICE_DECISION_MUST_MATCH_INTEGRATED_SAFETY",
+    "SHARED_OUTPUT_PRIVACY",
+    "NO_FAKE_EXECUTION_CLAIMS",
+    "UNAVAILABLE_CAPABILITIES_ARE_NOT_PASS",
+    "NO_QA_APPROVED_PREVIEW_WITHOUT_REQUIRED_VISUAL_CAPABILITIES"
+  ],
+  "capability_truth": {
+    "production_auth": false,
+    "production_persistence": false,
+    "external_visual_provider": false,
+    "deterministic_full_frame_lock_compositor": false,
+    "live_cross_domain_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "readiness_claims": {
+    "runtime_product_pass": false,
+    "live_cross_domain_product_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  }
+}
