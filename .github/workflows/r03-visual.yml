@@ -17,7 +17,7 @@ jobs:
         run: python -m pip install -e '.[dev]'
       - name: Compile
         run: python -m compileall -q src/abc_core
-      - name: R02 regression plus R03.1 gate tests
+      - name: R02 regression plus R03 visual-integrity gate tests
         run: >-
           pytest -q
           tests/test_app.py
@@ -37,3 +37,4 @@ jobs:
           tests/test_r02_7_integration.py
           tests/test_r02_8_integrated_core_gate.py
           tests/test_r03_1_visual_request_gate.py
+          tests/test_r03_2_mask_validation.py

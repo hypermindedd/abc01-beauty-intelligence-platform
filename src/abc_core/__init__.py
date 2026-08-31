@@ -1,5 +1,5 @@
 """ABC.01 canonical governed runtime."""
 
-__version__ = "0.6.0a1"
+__version__ = "0.6.0a2"
 R02_STAGE = "R02.8"
-R03_STAGE = "R03.1"
+R03_STAGE = "R03.2"
