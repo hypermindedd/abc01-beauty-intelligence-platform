@@ -59,17 +59,33 @@ class AnalysisState(FrozenModel):
     reviewer_actor_id: str | None = None
 
 
+class RecommendationComponentState(FrozenModel):
+    component_id: str
+    domain: str
+    label: str
+    service_ids: tuple[str, ...]
+    rationale: str
+    evidence_ids: tuple[str, ...] = ()
+
+
 class RecommendationOption(FrozenModel):
     option_id: str
     title: str
     role: RecommendationRole | None = None
     is_explore: bool = False
+    components: tuple[RecommendationComponentState, ...] = ()
+    intensity: str | None = None
+    maintenance: str = ""
+    tradeoff: str = ""
+    source_constraints: tuple[str, ...] = ()
+    preview_ready: bool = True
 
 
 class RecommendationSet(FrozenModel):
     recommendation_set_id: str
     core_options: tuple[RecommendationOption, ...]
     explore_options: tuple[RecommendationOption, ...] = ()
+    rules_applied: tuple[str, ...] = ()
 
     @property
     def active_count(self) -> int:

@@ -1,0 +1,15 @@
+{
+  "project": "ABC.01",
+  "stage": "R02.6",
+  "status": "READY_FOR_PR",
+  "branch_head": "db6b6130bde0b798b29c1546f1c2efce95c08f57",
+  "final_branch_workflow_run": 33372118158,
+  "final_branch_ci": "PASS",
+  "scope": "Governed recommendation runtime and canonical state integration",
+  "readiness": {
+    "runtime_product_pass": false,
+    "product_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  }
+}

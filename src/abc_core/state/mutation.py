@@ -78,21 +78,22 @@ class SessionMutationEngine:
             raise MutationRejected("ranked recommendation requires specialist-reviewed analysis")
         core = recommendations.core_options
         explore = recommendations.explore_options
-        expected_roles = {RecommendationRole.BEST_FIT, RecommendationRole.ALTERNATIVE, RecommendationRole.BOLDER}
-        roles = {o.role for o in core}
-        if len(core) != 3 or roles != expected_roles:
-            raise MutationRejected("core recommendation roles must be exactly BEST_FIT/ALTERNATIVE/BOLDER")
-        if any(o.is_explore or o.role is None for o in core):
+        role_order = (RecommendationRole.BEST_FIT, RecommendationRole.ALTERNATIVE, RecommendationRole.BOLDER)
+        if not 1 <= len(core) <= 3:
+            raise MutationRejected("core recommendations must contain 1-3 valid directions; three is a maximum, not a quota")
+        if tuple(option.role for option in core) != role_order[: len(core)]:
+            raise MutationRejected("core roles must follow BEST_FIT then ALTERNATIVE then BOLDER without gaps")
+        if any(option.is_explore or option.role is None for option in core):
             raise MutationRejected("core options cannot be Explore options")
         if len(explore) > self.max_explore:
             raise MutationRejected("Explore exceeds 0-3 directions")
-        if any((not o.is_explore) or o.role is not None for o in explore):
+        if any((not option.is_explore) or option.role is not None for option in explore):
             raise MutationRejected("Explore directions cannot relabel core roles")
-        if state.request is not None and state.request.fixed_choice and explore and not explicit_explore_requested:
-            raise MutationRejected("Fixed Choice cannot auto-expand into Explore")
+        if explore and not explicit_explore_requested:
+            raise MutationRejected("Explore requires explicit client or specialist request")
         if recommendations.active_count > self.max_active_looks:
             raise MutationRejected("active look limit exceeded")
-        ids = [o.option_id for o in core + explore]
+        ids = [option.option_id for option in core + explore]
         if len(ids) != len(set(ids)):
             raise MutationRejected("duplicate recommendation option id")
         return self._commit(state, actor, "PUBLISH_RECOMMENDATIONS", recommendations=recommendations)
@@ -111,7 +112,7 @@ class SessionMutationEngine:
             raise MutationRejected("Explore exceeds 0-3 directions")
         available = set()
         if state.recommendations:
-            available = {o.option_id for o in state.recommendations.explore_options}
+            available = {option.option_id for option in state.recommendations.explore_options}
         if any(direction.option_id not in available for direction in exploration.directions):
             raise MutationRejected("Explore direction must reference an active Explore option")
         return self._commit(state, actor, "SET_EXPLORATION_SET", exploration_set=exploration)
@@ -130,7 +131,7 @@ class SessionMutationEngine:
             raise MutationRejected("client selection requires client or specialist actor")
         valid_ids: set[str] = set()
         if state.recommendations:
-            valid_ids = {o.option_id for o in state.recommendations.core_options + state.recommendations.explore_options}
+            valid_ids = {option.option_id for option in state.recommendations.core_options + state.recommendations.explore_options}
         if selection.option_id not in valid_ids:
             raise MutationRejected("selection does not reference an active recommendation")
         return self._commit(state, actor, "CLIENT_SELECTION", client_selection=selection)
@@ -186,7 +187,7 @@ class SessionMutationEngine:
         self._guard_tenant(state, actor)
         if actor.actor_type is not ActorType.SPECIALIST:
             raise MutationRejected("service decision requires specialist actor")
-        unresolved_high = [f for f in state.safety_flags if not f.resolved and f.tier in {SafetyTier.S2, SafetyTier.S3}]
+        unresolved_high = [flag for flag in state.safety_flags if not flag.resolved and flag.tier in {SafetyTier.S2, SafetyTier.S3}]
         if decision.status is ServiceDecisionStatus.PROCEED:
             if state.specialist_validation is None or state.specialist_validation.status is not SpecialistValidationStatus.PASSED:
                 raise MutationRejected("PROCEED requires Specialist Validation PASSED")

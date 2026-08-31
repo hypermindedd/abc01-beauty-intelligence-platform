@@ -31,3 +31,5 @@ jobs:
           tests/test_tenant_auth_config_boundaries.py
           tests/test_cross_domain_analysis.py
           tests/test_analysis_compiler.py
+          tests/test_recommendation_runtime.py
+          tests/test_recommendation_state_integration.py

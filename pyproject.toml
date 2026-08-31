@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "abc-beauty-intelligence-core"
-version = "0.5.0a5"
-description = "ABC.01 clean Core runtime — R02.5 cross-domain capture and beauty analysis"
+version = "0.5.0a6"
+description = "ABC.01 clean Core runtime — R02.6 governed recommendation runtime"
 requires-python = ">=3.11,<3.15"
 dependencies = [
   "fastapi>=0.128,<1",
