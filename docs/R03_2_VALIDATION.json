@@ -1,0 +1,54 @@
+{
+  "project": "ABC.01",
+  "stage": "R03.2",
+  "version": "0.6.0a2",
+  "status": "BRANCH_VALIDATED_PR_PENDING",
+  "baseline_commit": "5741c6f1dc41b3edb050d462985a5a7a68a6ec79",
+  "validated_implementation_head": "77405ad4ade5acb0430f567ea34b11c425c19087",
+  "validation": {
+    "workflow": "ABC R03 Visual Runtime",
+    "run_id": 33383578569,
+    "conclusion": "success",
+    "tests_passed": 125,
+    "tests_failed": 0,
+    "warnings": 1
+  },
+  "hard_rules": [
+    "R03_1_PREFLIGHT_IS_REQUIRED_AND_REQUEST_BOUND",
+    "CORE_REVISION_MUST_NOT_CHANGE_AFTER_PREFLIGHT",
+    "MASK_AUTHORIZATION_BINDS_REQUEST_TENANT_SESSION_SOURCE_AND_OPTION",
+    "MASK_CANDIDATE_BINDS_REQUEST_TENANT_SESSION_SOURCE_AND_OPTION",
+    "MASK_DIMENSIONS_MATCH_AUTHORIZED_SOURCE_FRAME",
+    "AUTHORIZATION_AND_CANDIDATE_REGIONS_MATCH_REQUESTED_EDIT_SCOPE",
+    "MASK_SPANS_REMAIN_INSIDE_FRAME",
+    "CANDIDATE_SPANS_DO_NOT_SELF_OVERLAP",
+    "CANDIDATE_PIXELS_ARE_SUBSET_OF_EXACT_AUTHORIZED_REGION_GEOMETRY",
+    "MASK_SHA256_IS_RECOMPUTED_FROM_CANONICAL_CONTENT_AND_PROVENANCE",
+    "SPECIALIST_ASSISTED_AND_HYBRID_MODES_REQUIRE_SPECIALIST_PROVENANCE",
+    "FULL_FRAME_LOCK_EXCEPT_VALIDATED_AUTHORIZED_EDIT_REGION",
+    "MASK_VALIDATION_IS_READ_ONLY_AGAINST_CANONICAL_SESSION_STATE"
+  ],
+  "mask_modes": [
+    "AUTO",
+    "SPECIALIST_ASSISTED",
+    "HYBRID"
+  ],
+  "current_capability_truth": {
+    "external_visual_provider": false,
+    "deterministic_full_frame_lock_compositor": false,
+    "live_cross_domain_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "readiness_claims": {
+    "automatic_segmentation_implemented": false,
+    "specialist_mask_editor_implemented": false,
+    "external_visual_runtime_validated": false,
+    "deterministic_compositor_validated": false,
+    "locked_pixel_verification_validated": false,
+    "runtime_product_pass": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "next_valid_stage": "R03.3_PROVIDER_ADAPTER_QUARANTINE_AND_DISPATCH_BINDING_AFTER_PR_MERGE_AND_MAIN_CI"
+}

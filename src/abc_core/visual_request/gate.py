@@ -42,10 +42,18 @@ class VisualRequestRejected(RuntimeError):
 
 @dataclass(frozen=True)
 class VisualGateDecision:
+    """Immutable R03.1 decision bound to exactly one visual request and Core revision."""
+
     status: VisualGateStatus
     dispatch_allowed: bool
     reasons: tuple[VisualGateReason, ...]
     canonical_revision: int
+    request_id: str
+    tenant_id: str
+    session_id: str
+    source_asset_id: str
+    option_id: str
+    service_ids: tuple[str, ...]
     requested_edit_regions: tuple[EditRegion, ...]
 
     def require_dispatchable(self) -> None:
@@ -60,6 +68,8 @@ class VisualRequestGate:
 
     This gate is intentionally pure/read-only. It does not call a provider, create
     masks, generate images, mutate canonical session truth or claim readiness.
+    R03.2+ may add stricter downstream requirements; this decision remains a
+    necessary precondition rather than a bypass around later visual-integrity gates.
     """
 
     capabilities: CapabilityState = CAPABILITIES
@@ -149,7 +159,6 @@ class VisualRequestGate:
         if state.canonical_snapshot() != before:
             raise RuntimeError("R03.1 visual request gate mutated canonical truth state")
 
-        # Preserve deterministic reason order while preventing duplicate reason entries.
         unique_reasons = tuple(dict.fromkeys(reasons))
         dispatch_allowed = not unique_reasons
         return VisualGateDecision(
@@ -157,5 +166,11 @@ class VisualRequestGate:
             dispatch_allowed=dispatch_allowed,
             reasons=unique_reasons,
             canonical_revision=state.revision,
+            request_id=request.request_id,
+            tenant_id=request.tenant_id,
+            session_id=request.session_id,
+            source_asset_id=request.source_asset_id,
+            option_id=request.option_id,
+            service_ids=request.service_ids,
             requested_edit_regions=request.requested_edit_regions,
         )
