@@ -1,0 +1,45 @@
+{
+  "project": "ABC.01",
+  "stage": "R03.1",
+  "version": "0.6.0a1",
+  "status": "BRANCH_VALIDATED_PR_PENDING",
+  "baseline_commit": "c8a73091fd3409926a11943ed049ed9a20d234c9",
+  "validated_implementation_head": "d97916005f4e906986572852cc40d52782e7b022",
+  "validation": {
+    "workflow": "ABC R03 Visual Runtime",
+    "run_id": 33382606202,
+    "conclusion": "success",
+    "tests_passed": 110,
+    "tests_failed": 0,
+    "warnings": 1
+  },
+  "hard_rules": [
+    "TENANT_AND_SESSION_MATCH",
+    "VISUAL_FEATURE_EXPLICITLY_ENABLED",
+    "SERVICE_SCOPE_WITHIN_CANONICAL_REQUEST",
+    "SERVICE_ENABLED_FOR_TENANT",
+    "SOURCE_ASSET_EXISTS_AND_IS_IMAGE",
+    "CLIENT_SELECTED_ACTIVE_DIRECTION_ONLY",
+    "EXPLICIT_MEDIA_AND_PROVIDER_PROCESSING_CONSENT",
+    "USABLE_OR_STRONG_INPUT_QUALITY",
+    "NONEMPTY_AUTHORIZED_EDIT_SCOPE",
+    "UNRESOLVED_S2_S3_BLOCK_PROVIDER_DISPATCH",
+    "EXTERNAL_PROVIDER_AND_DETERMINISTIC_COMPOSITOR_REQUIRED_BEFORE_DISPATCH",
+    "READ_ONLY_ONE_CANONICAL_TRUTH_STATE"
+  ],
+  "current_capability_truth": {
+    "external_visual_provider": false,
+    "deterministic_full_frame_lock_compositor": false,
+    "live_cross_domain_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "readiness_claims": {
+    "runtime_product_pass": false,
+    "external_visual_runtime_validated": false,
+    "live_cross_domain_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "next_valid_stage": "R03.2_EDIT_SCOPE_MASK_ACQUISITION_AND_VALIDATION_AFTER_PR_MERGE_AND_MAIN_CI"
+}

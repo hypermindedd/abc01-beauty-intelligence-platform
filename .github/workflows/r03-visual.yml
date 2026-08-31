@@ -1,0 +1,39 @@
+name: ABC R03 Visual Runtime
+
+on:
+  push:
+    branches: [ main, 'r03/**' ]
+  pull_request:
+
+jobs:
+  r03-visual-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install governed Core
+        run: python -m pip install -e '.[dev]'
+      - name: Compile
+        run: python -m compileall -q src/abc_core
+      - name: R02 regression plus R03.1 gate tests
+        run: >-
+          pytest -q
+          tests/test_app.py
+          tests/test_baseline_contract.py
+          tests/test_capabilities.py
+          tests/test_registry_contract.py
+          tests/test_state_mutation_contract.py
+          tests/test_state_serialization.py
+          tests/test_orchestrator_workflow.py
+          tests/test_orchestration_control_plane.py
+          tests/test_tenant_auth_config_boundaries.py
+          tests/test_cross_domain_analysis.py
+          tests/test_analysis_compiler.py
+          tests/test_recommendation_runtime.py
+          tests/test_recommendation_state_integration.py
+          tests/test_service_safety_output.py
+          tests/test_r02_7_integration.py
+          tests/test_r02_8_integrated_core_gate.py
+          tests/test_r03_1_visual_request_gate.py
