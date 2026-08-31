@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pytest
 
+from abc_core.integration_bindings import R02_7_AGENT_BINDINGS
 from abc_core.output import OUTPUT_REGISTRY, OutputAudience, OutputCompiler, OutputContractViolation, OutputRequest
 from abc_core.safety import SafetyEngine
 from abc_core.service_intelligence import FORBIDDEN_SERVICE_IDS, SERVICE_REGISTRY, ServiceIntelligenceEngine, ServiceResolutionError
@@ -19,6 +20,14 @@ SYSTEM = ActorContext(actor_type=ActorType.SYSTEM, actor_id="AG-08", tenant_id=T
 
 def config(*ids: str) -> SalonConfig:
     return SalonConfig(tenant_id=TENANT, salon_id="SALON1", display_name="Salon", enabled_service_ids=ids)
+
+
+def test_r02_7_agent_bindings_are_exact():
+    assert R02_7_AGENT_BINDINGS == {
+        "AG-06": "SERVICE_INTELLIGENCE",
+        "AG-08": "SAFETY_AND_BOUNDARY_CONTROL",
+        "AG-10": "OUTPUT_AND_HANDOFF",
+    }
 
 
 def test_service_registry_covers_exact_active_ontology_and_excludes_forbidden():
@@ -55,6 +64,7 @@ def test_safety_propagates_service_baseline_and_unresolved_high_flags():
     service = ServiceIntelligenceEngine().resolve("CTRL-006", config("CTRL-006", "SVC-01-007"))
     assessment = SafetyEngine().assess(SalonSessionState(tenant_id=TENANT, session_id="S1"), (service,))
     assert assessment.highest_tier is SafetyTier.S2
+    assert assessment.professional_check_required is True
     assert ServiceDecisionStatus.PROCEED not in assessment.permitted_decisions
 
     state = SessionMutationEngine().add_safety_flag(
@@ -71,11 +81,12 @@ def test_provider_never_resolves_professional_safety_flag():
     assert SafetyEngine().provider_may_resolve_flag(flag) is False
 
 
-def test_output_registry_is_exact_out_01_through_out_17():
+def test_output_registry_is_exact_out_01_through_out_17_without_invented_labels():
     assert tuple(OUTPUT_REGISTRY) == tuple(f"OUT-{i:02d}" for i in range(1, 18))
+    assert all(row["authority_label"] is None for row in OUTPUT_REGISTRY.values())
 
 
-def test_output_compilation_is_read_only_and_shared_view_is_projection_of_same_truth():
+def test_output_compilation_is_read_only_and_shared_projection_hides_raw_runtime_ids():
     mutation = SessionMutationEngine()
     state = SalonSessionState(tenant_id=TENANT, session_id="S1")
     state = mutation.set_analysis(
@@ -89,8 +100,12 @@ def test_output_compilation_is_read_only_and_shared_view_is_projection_of_same_t
     compiler = OutputCompiler()
     shared = compiler.compile(state, OutputRequest(("OUT-01",), OutputAudience.SHARED))
     specialist = compiler.compile(state, OutputRequest(("OUT-01",), OutputAudience.SPECIALIST))
-    assert shared["analysis"]["analysis_id"] == specialist["analysis"]["analysis_id"] == "A1"
+    assert shared["analysis"]["shared_summary"] == "client-safe"
+    assert "analysis_id" not in shared["analysis"]
+    assert "session_id" not in shared
+    assert "output_ids" not in shared
     assert "specialist_summary" not in shared["analysis"]
+    assert specialist["analysis"]["analysis_id"] == "A1"
     assert specialist["analysis"]["specialist_summary"] == "technical detail"
     assert state.model_dump(mode="json") == before
 

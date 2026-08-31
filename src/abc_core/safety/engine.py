@@ -22,14 +22,16 @@ class SafetyEngine:
         unresolved = tuple(flag for flag in state.safety_flags if not flag.resolved)
         tiers.extend(flag.tier for flag in unresolved)
         highest = max(tiers or [SafetyTier.S0], key=self._ORDER.__getitem__)
-        high = tuple(flag.flag_id for flag in unresolved if flag.tier in {SafetyTier.S2, SafetyTier.S3})
+        high_flag_ids = tuple(flag.flag_id for flag in unresolved if flag.tier in {SafetyTier.S2, SafetyTier.S3})
+        professional_check_required = highest in {SafetyTier.S2, SafetyTier.S3} or bool(high_flag_ids)
         if highest is SafetyTier.S3:
             decisions = (ServiceDecisionStatus.STOP, ServiceDecisionStatus.DEFER, ServiceDecisionStatus.UNRESOLVED)
-        elif high or highest is SafetyTier.S2:
+        elif professional_check_required:
             decisions = (ServiceDecisionStatus.CHECK_FIRST, ServiceDecisionStatus.MODIFY, ServiceDecisionStatus.DEFER, ServiceDecisionStatus.UNRESOLVED)
         else:
             decisions = (ServiceDecisionStatus.PROCEED, ServiceDecisionStatus.MODIFY, ServiceDecisionStatus.CHECK_FIRST, ServiceDecisionStatus.DEFER)
-        return SafetyAssessment(highest, tuple(flag.flag_id for flag in unresolved), bool(high), decisions)
+        return SafetyAssessment(highest, tuple(flag.flag_id for flag in unresolved), professional_check_required, decisions)
 
     def provider_may_resolve_flag(self, flag: SafetyFlag) -> bool:
+        # Professional safety clearance remains a governed specialist mutation.
         return False
