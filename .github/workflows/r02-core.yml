@@ -33,3 +33,4 @@ jobs:
           tests/test_analysis_compiler.py
           tests/test_recommendation_runtime.py
           tests/test_recommendation_state_integration.py
+          tests/test_service_safety_output.py
