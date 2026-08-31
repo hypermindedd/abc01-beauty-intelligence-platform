@@ -23,14 +23,14 @@ def reviewed_state() -> SalonSessionState:
     return ENGINE.set_analysis(s, SPECIALIST, AnalysisState(analysis_id="A-1", reviewed_by_specialist=True))
 
 
-def recs(explore: int = 0) -> RecommendationSet:
-    core = (
+def recs(explore: int = 0, core_count: int = 3) -> RecommendationSet:
+    all_core = (
         RecommendationOption(option_id="O-A", title="A", role=RecommendationRole.BEST_FIT),
         RecommendationOption(option_id="O-B", title="B", role=RecommendationRole.ALTERNATIVE),
         RecommendationOption(option_id="O-C", title="C", role=RecommendationRole.BOLDER),
     )
     extra = tuple(RecommendationOption(option_id=f"O-E{i}", title=f"E{i}", is_explore=True) for i in range(explore))
-    return RecommendationSet(recommendation_set_id="R-1", core_options=core, explore_options=extra)
+    return RecommendationSet(recommendation_set_id="R-1", core_options=all_core[:core_count], explore_options=extra)
 
 
 def test_canonical_chain_mutations_are_revisioned_and_audited():
@@ -67,15 +67,52 @@ def test_client_or_system_cannot_set_specialist_validation_passed():
             ENGINE.set_specialist_validation(state(), actor, validation)
 
 
+def test_core_is_one_to_three_valid_directions_not_a_three_option_quota():
+    s = reviewed_state()
+    for count in (1, 2, 3):
+        accepted = ENGINE.publish_recommendations(s, SYSTEM, recs(core_count=count))
+        assert len(accepted.recommendations.core_options) == count
+    empty = RecommendationSet(recommendation_set_id="R-EMPTY", core_options=())
+    with pytest.raises(MutationRejected, match="1-3 valid directions"):
+        ENGINE.publish_recommendations(s, SYSTEM, empty)
+
+
+def test_core_roles_are_ordered_without_gaps():
+    s = reviewed_state()
+    invalid_first = RecommendationSet(
+        recommendation_set_id="R-X",
+        core_options=(RecommendationOption(option_id="O-X", title="X", role=RecommendationRole.ALTERNATIVE),),
+    )
+    with pytest.raises(MutationRejected, match="BEST_FIT"):
+        ENGINE.publish_recommendations(s, SYSTEM, invalid_first)
+    invalid_gap = RecommendationSet(
+        recommendation_set_id="R-Y",
+        core_options=(
+            RecommendationOption(option_id="O-A", title="A", role=RecommendationRole.BEST_FIT),
+            RecommendationOption(option_id="O-C", title="C", role=RecommendationRole.BOLDER),
+        ),
+    )
+    with pytest.raises(MutationRejected, match="without gaps"):
+        ENGINE.publish_recommendations(s, SYSTEM, invalid_gap)
+
+
 def test_explore_is_zero_to_three_never_relabels_core_and_max_six():
     s = reviewed_state()
-    accepted = ENGINE.publish_recommendations(s, SYSTEM, recs(3))
+    accepted = ENGINE.publish_recommendations(s, SYSTEM, recs(3), explicit_explore_requested=True)
     assert accepted.recommendations.active_count == 6
     bad_extra = RecommendationOption(option_id="O-E", title="bad", role=RecommendationRole.BEST_FIT, is_explore=True)
     with pytest.raises(MutationRejected):
-        ENGINE.publish_recommendations(s, SYSTEM, RecommendationSet(recommendation_set_id="R-X", core_options=recs().core_options, explore_options=(bad_extra,)))
+        ENGINE.publish_recommendations(s, SYSTEM, RecommendationSet(recommendation_set_id="R-X", core_options=recs().core_options, explore_options=(bad_extra,)), explicit_explore_requested=True)
     with pytest.raises(MutationRejected):
-        ENGINE.publish_recommendations(s, SYSTEM, recs(4))
+        ENGINE.publish_recommendations(s, SYSTEM, recs(4), explicit_explore_requested=True)
+
+
+def test_explore_must_be_explicit_for_all_modes():
+    s = reviewed_state()
+    with pytest.raises(MutationRejected, match="explicit"):
+        ENGINE.publish_recommendations(s, SYSTEM, recs(1))
+    accepted = ENGINE.publish_recommendations(s, SYSTEM, recs(1), explicit_explore_requested=True)
+    assert len(accepted.recommendations.explore_options) == 1
 
 
 def test_fixed_choice_does_not_auto_expand_but_explicit_explore_can_be_requested():
@@ -87,7 +124,7 @@ def test_fixed_choice_does_not_auto_expand_but_explicit_explore_can_be_requested
 
 
 def test_explore_set_requires_explicit_client_or_specialist_action_and_valid_options():
-    s = ENGINE.publish_recommendations(reviewed_state(), SYSTEM, recs(1))
+    s = ENGINE.publish_recommendations(reviewed_state(), SYSTEM, recs(1), explicit_explore_requested=True)
     exploration = VisualExplorationSet(exploration_set_id="X-1", directions=(ExploreDirection(direction_id="XD-1", axis="lower maintenance", option_id="O-E0"),))
     with pytest.raises(MutationRejected):
         ENGINE.set_exploration_set(s, SYSTEM, exploration)
@@ -156,7 +193,7 @@ def test_output_selection_is_canonical_but_compilation_is_read_only():
 
 
 def test_client_selection_does_not_imply_specialist_validation():
-    s = ENGINE.publish_recommendations(reviewed_state(), SYSTEM, recs())
+    s = ENGINE.publish_recommendations(reviewed_state(), SYSTEM, recs(core_count=1))
     s = ENGINE.select_option(s, CLIENT, ClientSelection(selection_id="SEL-1", option_id="O-A"))
     assert s.client_selection.option_id == "O-A"
     assert s.specialist_validation is None
