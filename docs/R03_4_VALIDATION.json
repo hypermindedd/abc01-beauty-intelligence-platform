@@ -1,0 +1,40 @@
+{
+  "project": "ABC.01",
+  "stage": "R03.4",
+  "version": "0.6.0a4",
+  "status": "BRANCH_VALIDATED_PR_PENDING",
+  "baseline_main": "b1e9635a53404baab2a328d2ea6c7d29ca712f76",
+  "validated_implementation_head": "17ccf1c67a26fee5b42f0259b39f42d5e8403e10",
+  "validation": {
+    "workflow": "ABC R03 Visual Runtime",
+    "run_id": 33519919284,
+    "conclusion": "success",
+    "tests_passed": 149,
+    "tests_failed": 0,
+    "warnings": 1
+  },
+  "hard_rules": [
+    "R03_3_QUARANTINED_RAW_OUTPUT_ONLY",
+    "R03_2_EXACT_VALIDATED_MASK_BINDING",
+    "SOURCE_PROVENANCE_SHA256_REQUIRED",
+    "PROVIDER_RAW_PROVENANCE_SHA256_REQUIRED",
+    "FULL_FRAME_LOCK_EXCEPT_VALIDATED_AUTHORIZED_EDIT_REGION",
+    "SOURCE_PIXELS_AUTHORITATIVE_OUTSIDE_MASK",
+    "PROVIDER_PIXELS_ALLOWED_ONLY_INSIDE_EXACT_MASK",
+    "LOCKED_PIXELS_VERIFIED_BYTE_EXACT",
+    "STALE_OR_SUBSTITUTED_BINDINGS_FAIL_CLOSED",
+    "LOCKED_COMPOSITE_IS_NOT_DECISION_PREVIEW",
+    "DOWNSTREAM_VISUAL_QA_REQUIRED"
+  ],
+  "nonclaims": {
+    "automatic_segmentation": false,
+    "real_external_provider_execution_validated": false,
+    "production_image_codec_media_persistence": false,
+    "identity_source_reality_visual_qa": false,
+    "live_cross_domain_visual_validation": false,
+    "runtime_product_pass": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "next_stage": "R03.5_VISUAL_QA_BOUNDED_RETRY_REJECT"
+}
