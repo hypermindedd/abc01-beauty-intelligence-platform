@@ -38,3 +38,4 @@ jobs:
           tests/test_r02_8_integrated_core_gate.py
           tests/test_r03_1_visual_request_gate.py
           tests/test_r03_2_mask_validation.py
+          tests/test_r03_3_provider_quarantine.py
