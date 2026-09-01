@@ -1,0 +1,50 @@
+{
+  "project": "ABC.01",
+  "stage": "R03.3",
+  "version": "0.6.0a3",
+  "status": "BRANCH_VALIDATED_PR_PENDING",
+  "baseline_commit": "d62cd28c721b0072188b470539682b771af3f78c",
+  "validated_implementation_head": "5e7847f013f05b43fe8eebfffdd87bbb8bf770ab",
+  "validation": {
+    "workflow": "ABC R03 Visual Runtime",
+    "run_id": 33495387713,
+    "conclusion": "success",
+    "tests_passed": 138,
+    "tests_failed": 0,
+    "warnings": 1
+  },
+  "hard_rules": [
+    "R03_1_PREFLIGHT_AND_R03_2_EXACT_MASK_VALIDATION_ARE_MANDATORY_BEFORE_PROVIDER_CALL",
+    "PROVIDER_DISPATCH_BINDS_REQUEST_TENANT_SESSION_SOURCE_OPTION_SERVICES_AND_CANONICAL_REVISION",
+    "SOURCE_BYTES_ARE_BOUND_BY_SHA256",
+    "MASK_AND_AUTHORIZATION_DIGESTS_ARE_BOUND_IN_DISPATCH",
+    "PROVIDER_INSTRUCTION_IS_BOUND_BY_SHA256",
+    "PROVIDER_ADAPTER_IS_PROVIDER_INDEPENDENT",
+    "RAW_PROVIDER_OUTPUT_IS_ALWAYS_UNTRUSTED_QUARANTINE_INPUT",
+    "RAW_PROVIDER_OUTPUT_CANNOT_BECOME_DECISION_PREVIEW_DIRECTLY",
+    "MALFORMED_PROVIDER_OUTPUT_IS_QUARANTINED_REJECTED",
+    "PROVIDER_EXCEPTION_DOES_NOT_FABRICATE_SUCCESS_OR_PREVIEW",
+    "QUARANTINE_REFERENCE_IMPLEMENTATION_IS_NON_DURABLE",
+    "PROVIDER_AND_QUARANTINE_PATH_IS_READ_ONLY_AGAINST_CANONICAL_SESSION_STATE"
+  ],
+  "current_capability_truth": {
+    "external_visual_provider": false,
+    "deterministic_full_frame_lock_compositor": false,
+    "live_cross_domain_validation": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "readiness_claims": {
+    "real_provider_adapter_implemented_and_validated": false,
+    "automatic_segmentation_implemented": false,
+    "production_media_persistence": false,
+    "deterministic_compositor_validated": false,
+    "locked_pixel_verification_validated": false,
+    "identity_source_reality_visual_qa_validated": false,
+    "live_cross_domain_visual_validation": false,
+    "runtime_product_pass": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "next_valid_stage": "R03.4_DETERMINISTIC_FULL_FRAME_LOCK_COMPOSITOR_AND_LOCKED_PIXEL_VERIFICATION_AFTER_PR_MERGE_AND_MAIN_CI"
+}
