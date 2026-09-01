@@ -40,3 +40,4 @@ jobs:
           tests/test_r03_2_mask_validation.py
           tests/test_r03_3_provider_quarantine.py
           tests/test_r03_4_deterministic_compositor.py
+          tests/test_r03_5_visual_qa.py
