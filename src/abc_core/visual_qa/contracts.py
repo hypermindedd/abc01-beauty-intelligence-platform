@@ -45,6 +45,13 @@ class VisualQaEvidenceBundle:
     composite_id: str
     composite_pixel_sha256: str
     findings: tuple[QaFinding, ...]
+    request_id: str = ""
+    tenant_id: str = ""
+    session_id: str = ""
+    source_asset_id: str = ""
+    option_id: str = ""
+    canonical_revision: int = -1
+    service_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         digest = self.composite_pixel_sha256.lower()
@@ -52,6 +59,10 @@ class VisualQaEvidenceBundle:
             raise ValueError("composite_pixel_sha256 must be a 64-character hexadecimal digest")
         if len({finding.dimension for finding in self.findings}) != len(self.findings):
             raise ValueError("QA evidence contains duplicate dimensions")
+        if self.canonical_revision < 0:
+            raise ValueError("QA evidence canonical_revision must be non-negative")
+        if not self.service_ids or len(set(self.service_ids)) != len(self.service_ids):
+            raise ValueError("QA evidence service_ids must be nonempty and unique")
         object.__setattr__(self, "composite_pixel_sha256", digest)
 
 
