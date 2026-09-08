@@ -6,6 +6,7 @@ from enum import StrEnum
 from abc_core.visual_compositor import LockedCompositeArtifact
 
 from .contracts import QaDimension, QaFindingStatus, RetryBudget, VisualQaEvidenceBundle
+from .service_scope import required_dimensions_for_services
 
 
 class VisualQaAction(StrEnum):
@@ -43,58 +44,13 @@ class VisualQaDecision:
             raise RuntimeError(f"visual output is not QA approved: {self.action.value}")
 
 
-_BASELINE = (
-    QaDimension.REQUESTED_CHANGE_FIDELITY,
-    QaDimension.UNRELATED_REGION_INTEGRITY,
-    QaDimension.DOMAIN_SOURCE_REALITY,
-)
-
-
-def required_dimensions_for_services(service_ids: tuple[str, ...]) -> tuple[QaDimension, ...]:
-    """Return conservative QA obligations for the governed service scope.
-
-    This is deliberately additive. Multi-service looks inherit every applicable
-    preservation check rather than weakening one domain because another is active.
-    Unknown service identifiers keep the baseline and cannot create a silent PASS.
-    """
-
-    required = list(_BASELINE)
-    for service_id in service_ids:
-        if service_id.startswith("SVC-01-"):
-            required.extend((QaDimension.IDENTITY_CONTINUITY, QaDimension.HAIR_SHAPE_SOURCE_REALITY))
-        elif service_id.startswith("SVC-02-"):
-            required.extend((QaDimension.IDENTITY_CONTINUITY, QaDimension.HAIR_SHAPE_SOURCE_REALITY))
-        elif service_id.startswith("SVC-03-"):
-            required.extend((QaDimension.IDENTITY_CONTINUITY, QaDimension.FACE_GEOMETRY_CONTINUITY))
-        elif service_id.startswith("SVC-04-"):
-            required.append(QaDimension.HAND_GEOMETRY_CONTINUITY)
-        elif service_id.startswith("SVC-05-"):
-            required.extend(
-                (
-                    QaDimension.IDENTITY_CONTINUITY,
-                    QaDimension.FACE_GEOMETRY_CONTINUITY,
-                    QaDimension.HAIR_SHAPE_SOURCE_REALITY,
-                    QaDimension.FACIAL_HAIR_SOURCE_REALITY,
-                )
-            )
-        elif service_id == "CTRL-009":
-            required.extend(
-                (
-                    QaDimension.IDENTITY_CONTINUITY,
-                    QaDimension.FACE_GEOMETRY_CONTINUITY,
-                    QaDimension.HAIR_SHAPE_SOURCE_REALITY,
-                )
-            )
-    return tuple(dict.fromkeys(required))
-
-
 @dataclass(frozen=True)
 class VisualQaEngine:
     """R03.5 evidence-driven QA gate with bounded retry and honest failure modes.
 
     The engine does not invent confidence scores and does not itself inspect an
-    image. It evaluates explicitly supplied QA findings that are cryptographically
-    bound to one R03.4 composite. A live evaluator may be deterministic, model-based,
+    image. It evaluates explicitly supplied QA findings bound to one R03.4
+    composite. A live evaluator may be deterministic, model-based,
     specialist-based, or a governed combination; absent evidence can never PASS.
     """
 
