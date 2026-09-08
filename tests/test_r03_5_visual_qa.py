@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import pytest
 
 from abc_core.visual_compositor import LockedCompositeArtifact
@@ -21,6 +22,7 @@ SHA = "a" * 64
 
 
 def composite(**overrides) -> LockedCompositeArtifact:
+    pixels = b"\x00" * 12
     data = dict(
         composite_id="CMP-1",
         quarantine_id="Q-1",
@@ -39,17 +41,17 @@ def composite(**overrides) -> LockedCompositeArtifact:
         width=2,
         height=2,
         channels=3,
-        composite_pixel_sha256=SHA,
+        composite_pixel_sha256=hashlib.sha256(pixels).hexdigest(),
         locked_pixel_verification_sha256="f" * 64,
         edited_pixel_count=2,
         locked_pixel_count=2,
-        pixels=b"\x00" * 12,
+        pixels=pixels,
     )
     data.update(overrides)
     return LockedCompositeArtifact(**data)
 
 
-def bundle(comp, statuses, *, sha=None, comp_id=None):
+def bundle(comp, statuses, *, service_ids=("SVC-01-001",), sha=None, comp_id=None):
     findings = tuple(
         QaFinding(dim, status, f"evidence for {dim.value}", QaEvidenceOrigin.MODEL_EVALUATION)
         for dim, status in statuses.items()
@@ -58,6 +60,13 @@ def bundle(comp, statuses, *, sha=None, comp_id=None):
         composite_id=comp_id or comp.composite_id,
         composite_pixel_sha256=sha or comp.composite_pixel_sha256,
         findings=findings,
+        request_id=comp.request_id,
+        tenant_id=comp.tenant_id,
+        session_id=comp.session_id,
+        source_asset_id=comp.source_asset_id,
+        option_id=comp.option_id,
+        canonical_revision=comp.canonical_revision,
+        service_ids=service_ids,
     )
 
 
@@ -100,7 +109,7 @@ def test_all_required_pass_makes_only_a_decision_preview_candidate():
     decision = VisualQaEngine().evaluate(
         composite=comp,
         service_ids=services,
-        evidence=bundle(comp, all_pass(services)),
+        evidence=bundle(comp, all_pass(services), service_ids=services),
         budget=RetryBudget(attempt=1, max_attempts=2),
     )
     assert decision.action is VisualQaAction.QA_APPROVED
@@ -113,7 +122,7 @@ def test_missing_evidence_never_silently_passes():
     decision = VisualQaEngine().evaluate(
         composite=comp,
         service_ids=("SVC-03-001",),
-        evidence=bundle(comp, {QaDimension.REQUESTED_CHANGE_FIDELITY: QaFindingStatus.PASS}),
+        evidence=bundle(comp, {QaDimension.REQUESTED_CHANGE_FIDELITY: QaFindingStatus.PASS}, service_ids=("SVC-03-001",)),
         budget=RetryBudget(attempt=1),
     )
     assert decision.action is VisualQaAction.HONEST_LIMITATION
@@ -129,7 +138,7 @@ def test_unknown_is_honest_limitation_not_fake_pass_or_retry():
     decision = VisualQaEngine().evaluate(
         composite=comp,
         service_ids=services,
-        evidence=bundle(comp, statuses),
+        evidence=bundle(comp, statuses, service_ids=services),
         budget=RetryBudget(attempt=1),
     )
     assert decision.action is VisualQaAction.HONEST_LIMITATION
@@ -144,7 +153,7 @@ def test_specialist_check_is_not_auto_passed_by_qa():
     decision = VisualQaEngine().evaluate(
         composite=comp,
         service_ids=services,
-        evidence=bundle(comp, statuses),
+        evidence=bundle(comp, statuses, service_ids=services),
         budget=RetryBudget(attempt=1),
     )
     assert decision.action is VisualQaAction.SPECIALIST_CHECK
@@ -159,13 +168,13 @@ def test_failure_retries_only_while_bounded_budget_remains():
     first = VisualQaEngine().evaluate(
         composite=comp,
         service_ids=services,
-        evidence=bundle(comp, statuses),
+        evidence=bundle(comp, statuses, service_ids=services),
         budget=RetryBudget(attempt=1, max_attempts=2),
     )
     last = VisualQaEngine().evaluate(
         composite=comp,
         service_ids=services,
-        evidence=bundle(comp, statuses),
+        evidence=bundle(comp, statuses, service_ids=services),
         budget=RetryBudget(attempt=2, max_attempts=2),
     )
     assert first.action is VisualQaAction.RETRY
@@ -193,7 +202,11 @@ def test_duplicate_dimension_findings_are_invalid():
         QaEvidenceOrigin.DETERMINISTIC,
     )
     with pytest.raises(ValueError, match="duplicate"):
-        VisualQaEvidenceBundle(comp.composite_id, comp.composite_pixel_sha256, (finding, finding))
+        VisualQaEvidenceBundle(
+            comp.composite_id, comp.composite_pixel_sha256, (finding, finding),
+            comp.request_id, comp.tenant_id, comp.session_id, comp.source_asset_id,
+            comp.option_id, comp.canonical_revision, ("SVC-01-001",),
+        )
 
 
 def test_retry_budget_cannot_be_unbounded_or_invalid():
