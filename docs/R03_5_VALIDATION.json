@@ -1,0 +1,39 @@
+{
+  "project": "ABC.01",
+  "stage": "R03.5",
+  "version": "0.6.0a5",
+  "status": "BRANCH_VALIDATED_PR_PENDING",
+  "baseline_main": "83b8f665cf12c526e853a3198a258240633a71b1",
+  "validated_implementation_head": "e74190128d45c61fab55721fc91ffcd0c523283b",
+  "validation": {
+    "workflow": "ABC R03 Visual Runtime",
+    "run_id": 33520867612,
+    "conclusion": "success",
+    "tests_passed": 161,
+    "tests_failed": 0,
+    "warnings": 1
+  },
+  "hard_rules": [
+    "EXACT_R03_4_COMPOSITE_BINDING",
+    "MISSING_QA_EVIDENCE_NEVER_PASS",
+    "NO_FABRICATED_CONFIDENCE",
+    "DOMAIN_SOURCE_REALITY_REQUIRED",
+    "MULTI_SERVICE_QA_REQUIREMENTS_ADDITIVE",
+    "AI_CANNOT_RESOLVE_SPECIALIST_CHECK_TO_PASS",
+    "RETRY_BOUNDED",
+    "FAIL_AT_BUDGET_END_REJECT",
+    "QA_APPROVED_IS_ONLY_DECISION_PREVIEW_CANDIDATE",
+    "NO_CANONICAL_STATE_MUTATION"
+  ],
+  "nonclaims": {
+    "live_semantic_evaluator_validated_against_paid_provider_outputs": false,
+    "real_external_provider_execution_validated": false,
+    "automatic_segmentation": false,
+    "production_media_persistence": false,
+    "live_cross_domain_visual_validation": false,
+    "runtime_product_pass": false,
+    "pilot_ready": false,
+    "production_ready": false
+  },
+  "next_stage": "R03.6_INTEGRATED_VISUAL_RUNTIME_GATE"
+}
