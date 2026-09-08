@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import StrEnum
+import hashlib
 
 from abc_core.visual_compositor import LockedCompositeArtifact
 
@@ -19,6 +20,7 @@ class VisualQaAction(StrEnum):
 
 class VisualQaReason(StrEnum):
     EVIDENCE_BINDING_MISMATCH = "EVIDENCE_BINDING_MISMATCH"
+    COMPOSITE_RASTER_INTEGRITY_MISMATCH = "COMPOSITE_RASTER_INTEGRITY_MISMATCH"
     REQUIRED_DIMENSION_MISSING = "REQUIRED_DIMENSION_MISSING"
     REQUIRED_DIMENSION_FAILED = "REQUIRED_DIMENSION_FAILED"
     REQUIRED_DIMENSION_UNKNOWN = "REQUIRED_DIMENSION_UNKNOWN"
@@ -66,12 +68,26 @@ class VisualQaEngine:
         reasons: list[VisualQaReason] = []
 
         if (
+            hashlib.sha256(composite.pixels).hexdigest() != composite.composite_pixel_sha256
+            or
             evidence.composite_id != composite.composite_id
             or evidence.composite_pixel_sha256 != composite.composite_pixel_sha256
+            or evidence.request_id != composite.request_id
+            or evidence.tenant_id != composite.tenant_id
+            or evidence.session_id != composite.session_id
+            or evidence.source_asset_id != composite.source_asset_id
+            or evidence.option_id != composite.option_id
+            or evidence.canonical_revision != composite.canonical_revision
+            or evidence.service_ids != service_ids
         ):
+            integrity_reason = (
+                VisualQaReason.COMPOSITE_RASTER_INTEGRITY_MISMATCH
+                if hashlib.sha256(composite.pixels).hexdigest() != composite.composite_pixel_sha256
+                else VisualQaReason.EVIDENCE_BINDING_MISMATCH
+            )
             return VisualQaDecision(
                 action=VisualQaAction.REJECT,
-                reasons=(VisualQaReason.EVIDENCE_BINDING_MISMATCH,),
+                reasons=(integrity_reason,),
                 required_dimensions=required,
                 failed_dimensions=(),
                 unknown_dimensions=(),
