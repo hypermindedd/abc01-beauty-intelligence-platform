@@ -2,6 +2,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from abc_core.service_intelligence.registry import SERVICE_REGISTRY, FORBIDDEN_SERVICE_IDS
+from abc_core.service_intelligence import ServiceResolutionError
 from .contracts import QaDimension
 
 _BASELINE = (
@@ -25,7 +26,7 @@ _CONTROLLED_OBLIGATIONS = {
     'CTRL-009': _HAIR + _FACE + _NAILS, 'CTRL-010': _NAILS,
 }
 
-class QaServiceScopeError(ValueError):
+class QaServiceScopeError(ServiceResolutionError):
     pass
 
 @dataclass(frozen=True)
